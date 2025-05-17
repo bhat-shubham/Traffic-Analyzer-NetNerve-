@@ -1,14 +1,14 @@
-// import { Poppins } from 'next/font/google'
+"use client";
+import { Poppins } from 'next/font/google'
 // import {Image} from 'next/image'
 // import React, { useState } from "react";
-// Update the import path below if your FileUpload component is located elsewhere
-"use client";
 import { FileUpload } from "../components/ui/file-upload";
 // Update the import path below to the correct location of your FileUpload component
 // import { FileUpload } from "@/components/ui/file-upload";
 export default function Home() {
   return (
-    <div className="bg-gradient-to-r from-[#093637] via-[#11A08D] to-[#093637] font-[Poppins] font-extrabold">
+    <div className="bg-gradient-to-r from-[#1B3A31] to-[#253E36]
+font-[Poppins] font-extrabold">
       <div className="navbar bg-opacity-100">
   <div className="flex-1">
     <a className="btn btn-ghost text-xl">Packet Analyzer</a>
@@ -21,16 +21,15 @@ export default function Home() {
     </ul>
   </div>
 </div>
-<div className="h-screen flex justify-around items-center">
-  <div className="h-1/2 w-1/3 border rounded-md flex flex-col justify-center items-center ">
-  <h1 className="text-5xl text-center bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">AI Powered Packet Analyzer</h1>
-  <li>Analyzes Your packets and detect any suspicious activity</li>
-  <li>Detects any malicious packets</li>
-  <li>Detects any suspicious activity</li>
+<div className="h-screen flex justify-between mx-10 items-center">
+  <div className="h-1/2 w-1/2 rounded-md flex flex-col ">
+  <h1 className="text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">AI Powered Packet Analyzer</h1>
+  <p className='mt-5 text-lg' >Our cutting-edge platform leverages artificial intelligence to simplify and enhance the analysis of PCAP and CAP files. Instantly upload your packet captures and let our intelligent engine detect anomalies, suspicious patterns, and potential threats—no manual inspection needed. Designed for security professionals, researchers, and students, our tool provides actionable insights with speed, accuracy, and ease. Stay ahead of cyber threats with real-time analysis, visualizations, and recommendations powered by AI.</p>
   </div>
-  <div className="w-1/ border rounded-md">
-  <div className="w-full max-w-4xl border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
+  <div className="w-1/ rounded-md ">
+  <div className="bg-transparent flex flex-col justify-between w-full max-w-4xl  border-dashed border-neutral-200 dark:border-neutral-800 rounded-lg">
       <FileUpload />
+      <button className="mt-2 btn btn-dash text-xl">Analyse My Packet</button>
 
       {/* </FileUpload> */}
     </div>

@@ -137,7 +137,7 @@ export const FileUpload = ({
                   damping: 20,
                 }}
                 className={cn(
-                  "relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-neutral-900 flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
+                  "relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-[#202F34] flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
                   "shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
                 )}
               >
@@ -170,10 +170,10 @@ export const FileUpload = ({
 };
 
 export function GridPattern() {
-  const columns = 9;
+  const columns = 15;
   const rows = 9;
   return (
-<div className="flex bg-gradient-to-r from-[#44A08D] to-[#093637] shrink-0 flex-wrap justify-center items-center gap-x-px gap-y-px scale-120 p-1 rounded-md">
+<div className="flex bg-gradient-to-r from-[#44A08D] to-[#093637] shrink-0 flex-wrap justify-center items-center gap-x-px gap-y-px scale-110 p-0 rounded-md">
   {Array.from({ length: rows }).map((_, row) =>
     Array.from({ length: columns }).map((_, col) => {
       const index = row * columns + col;
