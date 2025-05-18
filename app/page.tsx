@@ -1,12 +1,28 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
-// import Image from 'next/image';
-// import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { FileUpload } from "../components/ui/file-upload";
 import { WobbleCard } from "../components/ui/wobble-card";
-// Update the import path below to the correct location of your FileUpload component
-// import { FileUpload } from "@/components/ui/file-upload";
+import { useRef } from "react";
+import { FaUpload, FaBrain, FaChartBar } from "react-icons/fa";
+const steps = [
+  {
+    icon: <FaUpload className="text-white text-4xl mb-4" />,
+    title: "Upload",
+    desc: "Upload your packet capture (.pcap/.cap) file securely to begin the analysis."
+  },
+  {
+    icon: <FaBrain className="text-white text-4xl mb-4" />,
+    title: "Analyze",
+    desc: "Our AI engine inspects the file, detects anomalies, and identifies threats."
+  },
+  {
+    icon: <FaChartBar className="text-white text-4xl mb-4" />,
+    title: "Visualize",
+    desc: "See insights, suspicious flows, and a summary report in real-time."
+  }
+];
 export default function Home() {
+  const containerRef = useRef(null);
   return (
     <div className="bg-gradient-to-r from-[#1B3A31] to-[#253E36]
 font-[Poppins] font-extrabold">
@@ -36,8 +52,8 @@ font-[Poppins] font-extrabold">
     </div>
   </div>
 </div>
-<h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl p-1 text-center">Features</h1>
-<div className="p-5 grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-7xl mx-auto w-full">
+<h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl mb-10 text-center">Features</h1>
+<div className="p-2 grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-7xl mx-auto w-full">
       <WobbleCard
         containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
         className=""
@@ -92,6 +108,31 @@ font-[Poppins] font-extrabold">
         />
         </div>
       </WobbleCard>
+    </div>
+    <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl p-2 text-center">How It Works?
+    </h1>
+<div className="scrollbar-hide flex align-center items-center justify-center bg-gradient-to-r from-[#1B3A31] to-[#253E36] py-10 px-8">
+      <div
+        ref={containerRef}
+        className="sticky flex h-full w-1/2 flex gap-20 overflow-auto"
+        style={{ scrollSnapType: "x mandatory" }}
+      >
+        {steps.map((step, index) => (
+          <motion.div
+            key={index}
+            className="w-[500px] snap-start bg-[#2F4F4F] rounded-2xl scrollbar-hide p-6 flex-shrink-0 shadow-lg"
+            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+          >
+            <div className="h-60 flex flex-col items-center justify-center text-center text-white">
+              {step.icon}
+              <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+              <p className="text-sm opacity-80">{step.desc}</p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
     </div>
 {/* background-image: linear-gradient(to right, var(--tw-gradient-stops)); */}
     </div>
