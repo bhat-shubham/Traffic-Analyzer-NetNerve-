@@ -1,33 +1,33 @@
 "use client";
-import { motion , useTransform, useScroll } from "framer-motion";
+// import { motion , useTransform, useScroll } from "framer-motion";
 import { FileUpload } from "../components/ui/file-upload";
 import { WobbleCard } from "../components/ui/wobble-card";
-import { useRef } from "react";
+// import { useRef } from "react";
 import { FaUpload, FaBrain, FaChartBar } from "react-icons/fa";
 import Image from "next/image";
-const steps = [
-  {
-    icon: <FaUpload className="text-[#fff] text-4xl mb-4" />,
-    title: "Upload",
-    desc: "Upload your packet capture (.pcap/.cap) file securely to begin the analysis.",
-  },
-  {
-    icon: <FaBrain className="text-white text-4xl mb-4" />,
-    title: "Analyze",
-    desc: "Our AI engine inspects the file, detects anomalies, and identifies threats.",
-  },
-  {
-    icon: <FaChartBar className="text-white text-4xl mb-4" />,
-    title: "Visualize",
-    desc: "See insights, suspicious flows, and a summary report in real-time.",
-  },
-];
+// const steps = [
+//   {
+//     icon: <FaUpload className="text-[#fff] text-4xl mb-4" />,
+//     title: "Upload",
+//     desc: "Upload your packet capture (.pcap/.cap) file securely to begin the analysis.",
+//   },
+//   {
+//     icon: <FaBrain className="text-white text-4xl mb-4" />,
+//     title: "Analyze",
+//     desc: "Our AI engine inspects the file, detects anomalies, and identifies threats.",
+//   },
+//   {
+//     icon: <FaChartBar className="text-white text-4xl mb-4" />,
+//     title: "Visualize",
+//     desc: "See insights, suspicious flows, and a summary report in real-time.",
+//   },
+// ];
 export default function Home() {
-const targetRef = useRef(null);
-const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
-const x = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+// const targetRef = useRef(null);
+// const { scrollYProgress } = useScroll({
+//     target: targetRef,
+//   });
+// const x = useTransform(scrollYProgress, [0, 1], ["-10%", "100%"]);
   return (
     
     <div
@@ -143,30 +143,27 @@ font-[Poppins] font-extrabold"
           </div>
         </WobbleCard>
       </div>
-      <div className="sticky top-10">
+      <div className="sticky top-10 h-[150vh]">
       <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl p-2 text-center">
         How It Works?
       </h1>
-      <div ref={targetRef} className="h-20vh flex align-center justify-center py-10 px-8">
+      <div className="h-20vh flex items-center align-center justify-center">
         <div
-          className="flex w-1/2 gap-50 overflow-y-hidden"
-        >
-          {steps.map((step, index) => (
-            <motion.div
-            style={{ x }}
-              key={index}
-              className=" w-[500px] bg-[#2F4F4F] rounded-2xl p-6 flex-shrink-0 shadow-lg"
-              whileInView={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 50 }}
-              transition={{ duration: 0.3, delay: index * 0.2 }}
-            >
-              <div className="h-80 flex flex-col items-center justify-center text-center text-white">
-                {step.icon}
-                <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                <p className="text-sm opacity-80">{step.desc}</p>
-              </div>
-            </motion.div>
-          ))}
+          className="overflow-y-hidden gap-10 h-[500px] justify-start items-center flex w-2/3">
+            {/* icon: <FaUpload className="text-[#fff] text-4xl mb-4" /> */}
+            <div className="text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
+            <FaUpload className="text-[#fff] text-3xl" />Upload
+            <p className="mt-5 px-10 text-center text-sm" >Upload your packet capture (.pcap/.cap) file securely to begin the analysis.</p>
+            </div>
+            <div className="text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
+            <FaBrain className="text-[#fff] text-3xl" />
+              Analyze
+              <p className="mt-5 px-10 text-center text-sm" >Our AI engine inspects the file, detects anomalies, and identifies threats.</p></div>
+              
+            <div className="text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
+            <FaChartBar className="text-[#fff] text-3xl" />
+            Visualise
+            <p className="mt-5 px-10 text-center text-sm" >See insights, suspicious flows, and a summary report in real-time.</p></div>
         </div>
       </div>
       </div>
