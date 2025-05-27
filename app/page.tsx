@@ -29,12 +29,12 @@ useGSAP(() => {
     duration: 0.5,
     ease: "ealstic.in",
   });
-  gsap.from(feature.current, { foreach: "feature.current",
+  gsap.from(feature.current, {
     scrollTrigger: feature.current, // start animation when ".box" enters the viewport
-    y: 400,
+    y: 200,
     stagger: 0.05,
-    duration: 1,
-    ease: "back.out",
+    duration:1,
+    ease: "back.out(1.7)",
 });
 
   return () => {
