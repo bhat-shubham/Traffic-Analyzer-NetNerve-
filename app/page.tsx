@@ -5,29 +5,43 @@ import { WobbleCard } from "../components/ui/wobble-card";
 // import { useRef } from "react";
 import { FaUpload, FaBrain, FaChartBar } from "react-icons/fa";
 import Image from "next/image";
-// const steps = [
-//   {
-//     icon: <FaUpload className="text-[#fff] text-4xl mb-4" />,
-//     title: "Upload",
-//     desc: "Upload your packet capture (.pcap/.cap) file securely to begin the analysis.",
-//   },
-//   {
-//     icon: <FaBrain className="text-white text-4xl mb-4" />,
-//     title: "Analyze",
-//     desc: "Our AI engine inspects the file, detects anomalies, and identifies threats.",
-//   },
-//   {
-//     icon: <FaChartBar className="text-white text-4xl mb-4" />,
-//     title: "Visualize",
-//     desc: "See insights, suspicious flows, and a summary report in real-time.",
-//   },
-// ];
+import { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import SplitText from "gsap/SplitText";
+import ScrollTrigger from "gsap/ScrollTrigger";
+gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
+
 export default function Home() {
-// const targetRef = useRef(null);
+const headline = useRef(null);
+const feature = useRef(null);
 // const { scrollYProgress } = useScroll({
 //     target: targetRef,
 //   });
 // const x = useTransform(scrollYProgress, [0, 1], ["-10%", "100%"]);
+useGSAP(() => {
+  const split = SplitText.create(headline.current, { type: "chars" });
+
+  gsap.from(split.chars, {
+    x: 50,
+    autoAlpha: 0, // handles opacity + visibility
+    stagger: 0.05,
+    duration: 0.5,
+    ease: "ealstic.in",
+  });
+  gsap.from(feature.current, { foreach: "feature.current",
+    scrollTrigger: feature.current, // start animation when ".box" enters the viewport
+    y: 400,
+    stagger: 0.05,
+    duration: 1,
+    ease: "back.out",
+});
+
+  return () => {
+    split.revert(); // clean up on unmount
+  };
+});
+
   return (
     
     <div
@@ -53,8 +67,8 @@ font-[Poppins] font-extrabold"
         </div>
       </div>
       <div className="h-screen flex justify-between mx-10 items-center">
-        <div className="h-1/2 w-1/2 rounded-md flex flex-col ">
-          <h1 className="text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">
+        <div  className="h-1/2 w-1/2 rounded-md flex flex-col ">
+          <h1 ref={headline} className="text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text">
             AI Powered Packet Analyzer
           </h1>
           <p className="mt-5 text-">
@@ -82,7 +96,7 @@ font-[Poppins] font-extrabold"
       <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl mb-10 text-center">
         Features
       </h1>
-      <div className="p-2 grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-7xl mx-auto w-full">
+      <div ref={feature} className="p-2 grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-7xl mx-auto w-full">
         <WobbleCard
           containerClassName="col-span-1 lg:col-span-2 h-full bg-pink-800 min-h-[500px] lg:min-h-[300px]"
           className=""
@@ -167,7 +181,7 @@ font-[Poppins] font-extrabold"
         </div>
       </div>
       </div>
-      <div className="h-screen">
+      <div className="h-[500px] bg-accent">
         shubham
       </div>
       
