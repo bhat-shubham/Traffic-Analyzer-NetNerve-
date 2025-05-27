@@ -35,6 +35,7 @@ useGSAP(() => {
     stagger: 0.05,
     duration:1,
     ease: "back.out(1.7)",
+    scrub: 0.5,
 });
 
   return () => {
@@ -50,7 +51,7 @@ font-[Poppins] font-extrabold"
     >
       <div className="navbar bg-opacity-100">
         <div className="flex-1">
-          <a className="btn btn-ghost text-xl">Packet Analyzer</a>
+          <a className="ml-8 text-xl">Packet Analyzer</a>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-15 gap-10">
@@ -93,7 +94,7 @@ font-[Poppins] font-extrabold"
           </div>
         </div>
       </div>
-      <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl mb-10 text-center">
+      <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl mb-5 text-center">
         Features
       </h1>
       <div ref={feature} className="p-2 grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-7xl mx-auto w-full">
@@ -161,11 +162,11 @@ font-[Poppins] font-extrabold"
       <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl p-2 text-center">
         How It Works?
       </h1>
-      <div className="h-20vh flex items-center align-center justify-center">
+      <div className="flex-nowrap h-20vh flex items-center align-center justify-center">
         <div
           className="overflow-y-hidden gap-10 h-[500px] justify-start items-center flex w-2/3">
             {/* icon: <FaUpload className="text-[#fff] text-4xl mb-4" /> */}
-            <div className="text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
+            <div className= "text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
             <FaUpload className="text-[#fff] text-3xl" />Upload
             <p className="mt-5 px-10 text-center text-sm" >Upload your packet capture (.pcap/.cap) file securely to begin the analysis.</p>
             </div>
