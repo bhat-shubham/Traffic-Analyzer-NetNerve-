@@ -91,10 +91,10 @@ font-[Poppins] font-extrabold"
       </div>
       <div className="h-screen flex justify-between mx-10 items-center">
         <div  className="h-1/2 w-1/2 rounded-md flex flex-col ">
-          <h1 ref={headline} className="text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text">
+          <h1 ref={headline} className="text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-green-200">
             AI Powered Packet Analyzer
           </h1>
-          <p ref={para} className="mt-5">
+          <p ref={para} className="mt-5 text-green-200">
             Our cutting-edge platform leverages artificial intelligence to
             simplify and enhance the analysis of PCAP and CAP files. Instantly
             upload your packet captures and let our intelligent engine detect
@@ -184,9 +184,11 @@ font-[Poppins] font-extrabold"
       <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl p-2 text-center">
         How It Works?
       </h1>
+       <div className="relative h-[500px] w-full">
       <div className="flex-nowrap h-20vh flex items-center align-center justify-center">
         <div
-          className="overflow-y-hidden gap-10 h-[500px] justify-start items-center flex w-2/3">
+          className="scrollbar-hide overflow-x-auto overflow-y-hidden gap-10 h-[500px] justify-start items-center flex w-2/3"
+          style={{ scrollSnapType: "x mandatory" }}>
             {/* icon: <FaUpload className="text-[#fff] text-4xl mb-4" /> */}
             <div className= "text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
             <FaUpload className="text-[#fff] text-3xl" />Upload
@@ -202,6 +204,7 @@ font-[Poppins] font-extrabold"
             Visualise
             <p className="mt-5 px-10 text-center text-sm" >See insights, suspicious flows, and a summary report in real-time.</p></div>
         </div>
+      </div>
       </div>
       </div>
       <div className="h-[500px] bg-accent">
