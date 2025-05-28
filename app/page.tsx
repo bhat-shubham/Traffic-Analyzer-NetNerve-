@@ -15,12 +15,27 @@ gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
 export default function Home() {
 const headline = useRef(null);
 const feature = useRef(null);
-// const { scrollYProgress } = useScroll({
-//     target: targetRef,
-//   });
-// const x = useTransform(scrollYProgress, [0, 1], ["-10%", "100%"]);
+const para = useRef(null);
+
 useGSAP(() => {
+  let parasplit;
   const split = SplitText.create(headline.current, { type: "chars" });
+  // paragraph split
+  SplitText.create(para.current, { type: "words,lines",
+    linesClass: "line",
+    autoSplit: true,
+    mask: "lines",
+    onSplit: (self) => {
+      parasplit = gsap.from(self.lines, {
+        duration: 0.8,
+        yPercent: 100,
+        opacity: 0,
+        stagger: 0.3,
+        ease: "power2.out",
+      });
+      return parasplit;
+    }
+     });
 
   gsap.from(split.chars, {
     x: 50,
@@ -30,13 +45,20 @@ useGSAP(() => {
     ease: "ealstic.in",
   });
   gsap.from(feature.current, {
-    scrollTrigger: feature.current, // start animation when ".box" enters the viewport
+    scrollTrigger: feature.current, // start animation when enters the viewport
     y: 200,
     stagger: 0.05,
     duration:1,
     ease: "back.out(1.7)",
     scrub: 0.5,
 });
+// gsap.from(parasplit.lines, {
+//   duration: 1,
+//   yPercent: 100,
+//   opacity: 0,
+//   stagger: 0.05,
+//   ease: "expo.out",
+// });
 
   return () => {
     split.revert(); // clean up on unmount
@@ -72,7 +94,7 @@ font-[Poppins] font-extrabold"
           <h1 ref={headline} className="text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text">
             AI Powered Packet Analyzer
           </h1>
-          <p className="mt-5 text-">
+          <p ref={para} className="mt-5">
             Our cutting-edge platform leverages artificial intelligence to
             simplify and enhance the analysis of PCAP and CAP files. Instantly
             upload your packet captures and let our intelligent engine detect
