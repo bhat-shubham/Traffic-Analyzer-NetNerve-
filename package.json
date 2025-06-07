@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@tabler/icons-react": "^3.33.0",
+    "@tabler/icons-react": "^3.34.0",
     "clsx": "^2.1.1",
     "daisyui": "^5.0.35",
     "gsap": "^3.13.0",
-    "motion": "^12.12.1",
+    "motion": "^12.16.0",
     "next": "^15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

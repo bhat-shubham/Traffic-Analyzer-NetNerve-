@@ -20,7 +20,10 @@ const HorizontalScrollCarousel = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["15%", "-50%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[300vh] bg-gradient-to-r from-[#1B3A31] to-[#253E36]">
+    <section ref={targetRef} className="relative h-[400vh] bg-gradient-to-r from-[#1B3A31] to-[#253E36]">
+      <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl text-center">
+        How This Works?
+      </h1>
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         
         <motion.div style={{ x }} className="flex gap-115">
@@ -38,18 +41,14 @@ const Card = ({ card }: { card: CardType }) => {
     
     <div
       key={card.id}
-      className=" rounded-4xl group relative h-[450px] w-[650px] overflow-hidden"
-    >   
-    
+      className=" rounded-4xl group relative h-[450px] w-[650px] overflow-hidden">
       <div
         style={{       
-            backgroundImage: `url('/${card.id}.png')`,   
+          backgroundImage: `url('/${card.id}.png')`,   
           backgroundSize: "cover",
-        //   backgroundPosition: "center",
+          // backgroundPosition: "center",
         }}
-        className="absolute inset-0 bg-[#2F4F4F]"
-      >
-        
+        className="absolute inset-0">
       </div>
       
       

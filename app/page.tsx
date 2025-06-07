@@ -9,6 +9,7 @@ import { useGSAP } from '@gsap/react';
 import SplitText from "gsap/SplitText";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Horizontalscroll from "../components/ui/horizontalscroll";
+import {AnimatedTestimonials,testimonials} from "../components/ui/animated-testimonials";
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
 
 export default function Home() {
@@ -181,13 +182,13 @@ font-[Poppins] font-extrabold"
         </WobbleCard>
       </div>
       <div ref={working} className="h-[50x]">
-      <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl text-center">
-        How This Works?
-      </h1>
        <Horizontalscroll />
       </div>
-      <div className="h-screen bg-amber-50 text-center text-2xl mt-10 mb-5">
-        shubham
+      <div className="h-screen items-center justify-center align-middle">
+        <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl text-center">
+          Testimonials
+        </h1>
+      <AnimatedTestimonials testimonials={testimonials} />
       </div>
       
       {/* background-image: linear-gradient(to right, var(--tw-gradient-stops)); */}
