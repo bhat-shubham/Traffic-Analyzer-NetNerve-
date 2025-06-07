@@ -179,14 +179,11 @@ font-[Poppins] font-extrabold"
           </div>
         </WobbleCard>
       </div>
-      <div className="h-[105vh]">
+      <div className="h-[50x]">
       <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl text-center">
-        How It Works?
+        How This Works?
       </h1>
        <Horizontalscroll />
-      </div>
-      <div className="">
-              {/* <Horizontalscroll /> */}
       </div>
       <div className="h-screen bg-amber-50 text-center text-2xl mt-10 mb-5">
         shubham
