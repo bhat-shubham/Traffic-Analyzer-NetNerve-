@@ -14,6 +14,7 @@ gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
 export default function Home() {
 const headline = useRef(null);
 const feature = useRef(null);
+const working = useRef(null);
 const para = useRef(null);
 
 useGSAP(() => {
@@ -51,13 +52,13 @@ useGSAP(() => {
     ease: "back.out(1.7)",
     scrub: 0.5,
 });
-// gsap.from(parasplit.lines, {
-//   duration: 1,
-//   yPercent: 100,
-//   opacity: 0,
-//   stagger: 0.05,
-//   ease: "expo.out",
-// });
+gsap.from(working.current, {
+  scrollTrigger: working.current,
+  filter: "blur(20px)",
+  opacity: 0,
+  duration: 2,
+  ease: "power2.out",
+});
 
   return () => {
     split.revert(); // clean up on unmount
@@ -179,7 +180,7 @@ font-[Poppins] font-extrabold"
           </div>
         </WobbleCard>
       </div>
-      <div className="h-[50x]">
+      <div ref={working} className="h-[50x]">
       <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl text-center">
         How This Works?
       </h1>
