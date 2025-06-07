@@ -2,14 +2,13 @@
 // import { motion , useTransform, useScroll } from "framer-motion";
 import { FileUpload } from "../components/ui/file-upload";
 import { WobbleCard } from "../components/ui/wobble-card";
-// import { useRef } from "react";
-import { FaUpload, FaBrain, FaChartBar } from "react-icons/fa";
 import Image from "next/image";
 import { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import SplitText from "gsap/SplitText";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Horizontalscroll from "../components/ui/horizontalscroll";
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger);
 
 export default function Home() {
@@ -180,34 +179,16 @@ font-[Poppins] font-extrabold"
           </div>
         </WobbleCard>
       </div>
-      <div className="sticky top-10 h-[150vh]">
-      <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl p-2 text-center">
+      <div className="h-[105vh]">
+      <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl text-center">
         How It Works?
       </h1>
-       <div className="relative h-[500px] w-full">
-      <div className="flex-nowrap h-20vh flex items-center align-center justify-center">
-        <div
-          className="scrollbar-hide overflow-x-auto overflow-y-hidden gap-10 h-[500px] justify-start items-center flex w-2/3"
-          style={{ scrollSnapType: "x mandatory" }}>
-            {/* icon: <FaUpload className="text-[#fff] text-4xl mb-4" /> */}
-            <div className= "text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
-            <FaUpload className="text-[#fff] text-3xl" />Upload
-            <p className="mt-5 px-10 text-center text-sm" >Upload your packet capture (.pcap/.cap) file securely to begin the analysis.</p>
-            </div>
-            <div className="text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
-            <FaBrain className="text-[#fff] text-3xl" />
-              Analyze
-              <p className="mt-5 px-10 text-center text-sm" >Our AI engine inspects the file, detects anomalies, and identifies threats.</p></div>
-              
-            <div className="text-xl bg-[#2F4F4F] rounded-xl flex-shrink-0 flex-col flex justify-center items-center w-[500px] h-2/3">
-            <FaChartBar className="text-[#fff] text-3xl" />
-            Visualise
-            <p className="mt-5 px-10 text-center text-sm" >See insights, suspicious flows, and a summary report in real-time.</p></div>
-        </div>
+       <Horizontalscroll />
       </div>
+      <div className="">
+              {/* <Horizontalscroll /> */}
       </div>
-      </div>
-      <div className="h-[500px] bg-accent">
+      <div className="h-screen bg-amber-50 text-center text-2xl mt-10 mb-5">
         shubham
       </div>
       
