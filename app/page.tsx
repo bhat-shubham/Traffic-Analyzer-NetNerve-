@@ -70,11 +70,12 @@ gsap.from(working.current, {
     
     <div
       className="bg-gradient-to-r from-[#1B3A31] to-[#253E36]
-font-[Poppins] font-extrabold"
-    >
-      <div className="navbar bg-opacity-100">
+font-[Poppins] font-extrabold">
+  <div className="h-screen flex-col align-middle items-center">
+      <div className="py-5 navbar">
         <div className="flex-1">
-          <a className="ml-8 text-xl">Packet Analyzer</a>
+          <a href="" className="px-8 text-3xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">NetNerve</a>
+          <p className="px-8 ">Network&apos;s nerve center, AI-powered.</p>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-15 gap-10">
@@ -90,7 +91,8 @@ font-[Poppins] font-extrabold"
           </ul>
         </div>
       </div>
-      <div className="h-screen flex justify-between mx-10 items-center">
+      <div className="py-35 px-10 flex justify-between">
+        
         <div  className="h-1/2 w-1/2 rounded-md flex flex-col ">
           <h1 ref={headline} className="text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-green-200">
             AI Powered Packet Analyzer
@@ -116,6 +118,7 @@ font-[Poppins] font-extrabold"
             {/* </FileUpload> */}
           </div>
         </div>
+      </div>
       </div>
       <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl mb-5 text-center">
         Features
