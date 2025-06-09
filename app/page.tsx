@@ -39,6 +39,7 @@ useGSAP(() => {
      });
 
   gsap.from(split.chars, {
+    opacity: 0,
     x: 50,
     autoAlpha: 0, // handles opacity + visibility
     stagger: 0.05,
@@ -60,11 +61,11 @@ gsap.from(working.current, {
   duration: 2,
   ease: "power2.out",
 });
-// ScrollSmoother.create({
-//   smooth: 1,
-//   effects: false,
-//   normalizeScroll: true
-// });
+ScrollSmoother.create({
+  smooth: 0,
+  effects: true,
+  normalizeScroll: true
+});
 
 return () => {
     split.revert(); // clean up on unmount
