@@ -9,7 +9,7 @@ import ScrollSmoother from "gsap/ScrollSmoother";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Horizontalscroll from "../components/ui/horizontalscroll";
 import Footer from "../components/ui/footer";
-import  Feature from "../components/ui/features";
+import Features from "../components/ui/features";
 import {AnimatedTestimonials,testimonials} from "../components/ui/animated-testimonials";
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 
@@ -123,7 +123,7 @@ return () => {
         </div>
       </div>
       </div>
-      <Feature />
+      <Features />
       <div ref={working} className="h-[50x]">
        <Horizontalscroll />
       </div>

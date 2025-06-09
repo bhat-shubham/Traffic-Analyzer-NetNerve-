@@ -2,7 +2,8 @@ import React from "react";
 import Image from "next/image";
 import { useRef } from "react";
 import {WobbleCard} from "./wobble-card";
-const features = () => {
+
+const Features = () => {
     const Feature = useRef(null);
   return (
     <section>
@@ -74,4 +75,4 @@ const features = () => {
   );
 };
 
-export default features;
+export default Features;
