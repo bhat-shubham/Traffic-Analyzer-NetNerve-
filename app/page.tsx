@@ -20,6 +20,8 @@ export default function Home() {
   const featureRef = useRef<HTMLDivElement>(null);  // Create the ref here
 
   useGSAP(() => {
+    gsap.set(headline.current, { visibility: "visible" });
+    gsap.set(para.current, { visibility: "visible" });
     let parasplit;
     const split = SplitText.create(headline.current, { type: "chars" });
     // paragraph split
@@ -113,10 +115,10 @@ export default function Home() {
       <div className="py-35 px-10 flex justify-between">
         
         <div  className="h-1/2 w-1/2 rounded-md flex flex-col ">
-          <h1 ref={headline} className="text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-green-200">
+          <h1 ref={headline} className="invisible text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-green-200">
             AI Powered Packet Analyzer
           </h1>
-          <p ref={para} className="mt-5 text-green-200">
+          <p ref={para} className="invisible mt-5 text-green-200">
             Our cutting-edge platform leverages artificial intelligence to
             simplify and enhance the analysis of PCAP and CAP files. Instantly
             upload your packet captures and let our intelligent engine detect
