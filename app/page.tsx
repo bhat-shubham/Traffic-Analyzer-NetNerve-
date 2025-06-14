@@ -64,6 +64,13 @@ export default function Home() {
       duration: 2,
       ease: "power2.out",
     });
+    gsap.to(".file-upload",{
+      opacity: 1,
+      duration: 0.5,
+      // stagger: 0.05,
+      ease: "power2.out",
+
+    });
     // const smoother = ScrollSmoother.create({
     //   wrapper: "working",
     //   // content: ".h-screen",
@@ -130,7 +137,7 @@ export default function Home() {
           </p>
         </div>
         <div className="w-1/3 rounded-md ">
-          <div className="">
+          <div className="file-upload opacity-0">
             <FileUpload />
             <button className="mt-2 btn btn-dash text-xl w-full">
               Analyse My Packet
