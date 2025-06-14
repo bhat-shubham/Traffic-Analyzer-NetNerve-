@@ -127,10 +127,10 @@ export default function Home() {
             analysis, visualizations, and recommendations powered by AI.
           </p>
         </div>
-        <div className="w-1/ rounded-md ">
-          <div className="bg-transparent flex flex-col justify-between w-full max-w-4xl  border-dashed border-neutral-200 dark:border-neutral-800 rounded-lg">
+        <div className="w-1/3 rounded-md ">
+          <div className="">
             <FileUpload />
-            <button className="mt-2 btn btn-dash text-xl">
+            <button className="mt-2 btn btn-dash text-xl w-full">
               Analyse My Packet
             </button>
 
