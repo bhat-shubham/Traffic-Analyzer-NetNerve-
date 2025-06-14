@@ -14,67 +14,82 @@ import {AnimatedTestimonials,testimonials} from "../components/ui/animated-testi
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 
 export default function Home() {
-const headline = useRef(null);
-const working = useRef(null);
-const para = useRef(null);
+  const headline = useRef(null);
+  const working = useRef(null);
+  const para = useRef(null);
+  const featureRef = useRef<HTMLDivElement>(null);  // Create the ref here
 
-useGSAP(() => {
-  let parasplit;
-  const split = SplitText.create(headline.current, { type: "chars" });
-  // paragraph split
-  SplitText.create(para.current, { type: "words,lines",
-    linesClass: "line",
-    autoSplit: true,
-    mask: "lines",
-    onSplit: (self) => {
-      parasplit = gsap.from(self.lines, {
-        duration: 0.8,
-        yPercent: 100,
-        opacity: 0,
-        stagger: 0.3,
-        ease: "power2.out",
-      });
-      return parasplit;
-    }
-     });
+  useGSAP(() => {
+    let parasplit;
+    const split = SplitText.create(headline.current, { type: "chars" });
+    // paragraph split
+    SplitText.create(para.current, { type: "words,lines",
+      linesClass: "line",
+      autoSplit: true,
+      mask: "lines",
+      onSplit: (self) => {
+        parasplit = gsap.from(self.lines, {
+          duration: 0.8,
+          yPercent: 100,
+          opacity: 0,
+          stagger: 0.3,
+          ease: "power2.out",
+        });
+        return parasplit;
+      }
+       });
 
-  gsap.from(split.chars, {
-    opacity: 0,
-    x: 50,
-    autoAlpha: 0, // handles opacity + visibility
-    stagger: 0.05,
-    duration: 0.5,
-    ease: "ealstic.in",
+    gsap.from(split.chars, {
+      opacity: 0,
+      x: 50,
+      autoAlpha: 0, // handles opacity + visibility
+      stagger: 0.05,
+      duration: 0.5,
+      ease: "ealstic.in",
+    });
+    gsap.from(featureRef.current, {
+      scrollTrigger: featureRef.current,
+      y: 200,
+      stagger: 0.05,
+      duration: 1,
+      ease: "back.out(1.7)",
+      scrub: 0.5,
+    });
+    gsap.from(working.current, {
+      scrollTrigger: working.current,
+      filter: "blur(20px)",
+      opacity: 0,
+      duration: 2,
+      ease: "power2.out",
+    });
+    // const smoother = ScrollSmoother.create({
+    //   wrapper: "working",
+    //   // content: ".h-screen",
+    //   smooth:1,
+    //   effects: true,
+    //   normalizeScroll: true,
+    //   smoothTouch: 0.1,
+    // });
+    // gsap.to("working", {
+    //   xPercent: -100,
+    //   ease: "none",
+    //   scrollTrigger: {
+    //     trigger: "working",
+    //     scroller: smoother.wrapper(), // important!
+    //     pin: true,
+    //     scrub: 1,
+    //     end: "+=1000", // adjust as needed
+    //   }
+    // });
+
+    return () => {
+        split.revert(); // clean up on unmount
+      };
   });
-//     gsap.from(feature.current, {
-//     scrollTrigger: feature.current, // start animation when enters the viewport
-//     y: 200,
-//     stagger: 0.05,
-//     duration:1,
-//     ease: "back.out(1.7)",
-//     scrub: 0.5,
-// });
-gsap.from(working.current, {
-  scrollTrigger: working.current,
-  filter: "blur(20px)",
-  opacity: 0,
-  duration: 2,
-  ease: "power2.out",
-});
-ScrollSmoother.create({
-  smooth: 0,
-  effects: true,
-  normalizeScroll: true
-});
-
-return () => {
-    split.revert(); // clean up on unmount
-  };
-});
 
   return (
     <div
-      className="bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
+      className="parent bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
   <div className="h-screen flex-col align-middle items-center">
       <div className="py-5 navbar">
         <div className="flex-1">
@@ -124,7 +139,7 @@ return () => {
         </div>
       </div>
       </div>
-      <Features />
+      <Features featureRef={featureRef} />
       <div ref={working} className="h-[50x]">
        <Horizontalscroll />
       </div>
