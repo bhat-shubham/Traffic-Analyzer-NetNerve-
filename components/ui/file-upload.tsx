@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
+import { CgFileRemove } from "react-icons/cg";
 
 const mainVariant = {
   initial: {
@@ -43,6 +44,10 @@ export const FileUpload = ({
     fileInputRef.current?.click();
   };
 
+  const handleRemove = (fileToRemove: File) => {
+    setFiles((prevFiles) => prevFiles.filter((file) => file !== fileToRemove));
+  };
+
   const { getRootProps, isDragActive } = useDropzone({
     multiple: false,
     noClick: true,
@@ -55,9 +60,8 @@ export const FileUpload = ({
   return (
     <div className="w-full" {...getRootProps()}>
       <motion.div
-        onClick={handleClick}
         whileHover="animate"
-        className="p-10 group/file block rounded-lg cursor-pointer w-full relative overflow-hidden"
+        className="p-10 group/file block rounded-lg w-full relative overflow-hidden"
       >
         <input
           ref={fileInputRef}
@@ -84,11 +88,11 @@ export const FileUpload = ({
                   key={"file" + idx}
                   layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
                   className={cn(
-                    "relative overflow-hidden z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start p-6 mt-4 mx-auto rounded-md",
+                    "relative overflow z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start p-5 mt-4 mx-auto rounded-md",
                     "shadow-sm"
                   )}
                 >
-                  <div className="flex justify-between w-full items-center gap-4">
+                  <div className="flex justify-between w-full items-center gap-1">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -97,19 +101,28 @@ export const FileUpload = ({
                     >
                       {file.name}
                     </motion.p>
-                    <motion.p
+                    {/* <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       layout
                       className="rounded-lg px-2 py-1 w-fit shrink-0 text-sm text-neutral-600 dark:bg-neutral-800 dark:text-white shadow-input"
                     >
                       {(file.size / (1024 * 1024)).toFixed(2)} MB
-                    </motion.p>
+                    </motion.p> */}
+                    <div className="tooltip" data-tip="Remove">
+                    <CgFileRemove
+                    
+                      size={20}
+                      onClick={() => handleRemove(file)}
+                      className="cursor-pointer"
+                    />
+                    </div>
                   </div>
                 </motion.div>
               ))}
             {!files.length && (
               <motion.div
+              onClick={handleClick}
                 layoutId="file-upload"
                 variants={mainVariant}
                 transition={{
@@ -118,7 +131,7 @@ export const FileUpload = ({
                   damping: 20,
                 }}
                 className={cn(
-                  "relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-[#202F34] flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
+                  "cursor-pointer relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-[#202F34] flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
                   "shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
                 )}
               >
@@ -154,23 +167,22 @@ export function GridPattern() {
   const columns = 15;
   const rows = 9;
   return (
-<div className="flex bg-gradient-to-r from-[#44A08D] to-[#093637] shrink-0 flex-wrap justify-center items-center gap-x-px gap-y-px scale-110 p-0 rounded-md">
-  {Array.from({ length: rows }).map((_, row) =>
-    Array.from({ length: columns }).map((_, col) => {
-      const index = row * columns + col;
-      return (
-        <div
-          key={`${col}-${row}`}
-          className={`w-10 h-10 flex shrink-0 rounded-[2px] ${
-            index % 2 === 0
-              ? "bg-[#59B2A4]" // soft teal
-              : "bg-[#0F3E3A] shadow-[inset_0_0_3px_rgba(255,255,255,0.1)]"
-          }`}
-        />
-      );
-    })
-  )}
-</div>
-
+    <div className="flex bg-gradient-to-r from-[#44A08D] to-[#093637] shrink-0 flex-wrap justify-center items-center gap-x-px gap-y-px scale-110 p-0 rounded-md">
+      {Array.from({ length: rows }).map((_, row) =>
+        Array.from({ length: columns }).map((_, col) => {
+          const index = row * columns + col;
+          return (
+            <div
+              key={`${col}-${row}`}
+              className={`w-10 h-10 flex shrink-0 rounded-[2px] ${
+                index % 2 === 0
+                  ? "bg-[#59B2A4]" // soft teal
+                  : "bg-[#0F3E3A] shadow-[inset_0_0_3px_rgba(255,255,255,0.1)]"
+              }`}
+            />
+          );
+        })
+      )}
+    </div>
   );
 }
