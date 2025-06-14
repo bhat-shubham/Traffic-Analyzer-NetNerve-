@@ -3,9 +3,8 @@ import Image from "next/image";
 import { WobbleCard } from "./wobble-card";
 
 interface FeaturesProps {
-  featureRef: React.RefObject<HTMLDivElement>;
+  featureRef: React.RefObject<HTMLDivElement | null>;
 }
-
 const Features = ({ featureRef }: FeaturesProps) => {
   return (
     <section>
