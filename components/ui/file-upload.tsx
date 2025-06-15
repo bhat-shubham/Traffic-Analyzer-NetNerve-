@@ -44,10 +44,35 @@ export const FileUpload = ({
   const handleClick = () => {
     fileInputRef.current?.click();
   };
+  
   // removing files
   const handleRemove = (fileToRemove: File) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file !== fileToRemove));
   };
+  const handleSubmit = async () =>
+    {
+      if(files.length===0){
+        toast.error("Please Upload A File Before Submitting")
+      }
+      const formData = new FormData();
+      formData.append("file", files[0]);
+      try{
+        const response = await fetch("http://localhost:8000/upload/",{
+          method:"POST",
+          body: formData,
+        });
+        if (response.ok){
+          toast.success("File Uploaded Successfully")
+        }
+        const result= await response.json();
+        console.log(result);
+        
+
+      }
+      catch(err){
+        console.log(err);
+      }
+}      
 
   const { getRootProps, isDragActive } = useDropzone({
     multiple: false,
@@ -65,12 +90,11 @@ export const FileUpload = ({
     // alert("Unsupported file type. Please upload a .cap or .pcap file.");
     setInputKey(prev => prev + 1);
     setFiles([]); // Clear files on unsupported type
-    toast.error("Please Upload a .cap or .pcap File." ,{
+    toast.error("Only .cap or .pcap files are supported" ,{
       style:{
         borderRadius: "8px",
         backgroundColor: "#202F34",
         color: "#fff",
-        // width: "800px",
       }
     
     });
@@ -140,7 +164,7 @@ export const FileUpload = ({
                     />
                     </div>
                   </div>
-                  <button className="mt-5 btn btn-dash text-xl w-full">
+                  <button onClick={handleSubmit} className="mt-5 btn btn-dash text-xl w-full">
                     Analyse My Packet
                     <IoArrowRedoSharp/>
                   </button>
@@ -192,7 +216,7 @@ export const FileUpload = ({
 
 export function GridPattern() {
   const columns = 15;
-  const rows = 9;
+  const rows = 11;
   return (
     <div className="flex bg-gradient-to-r from-[#44A08D] to-[#093637] shrink-0 flex-wrap justify-center items-center gap-x-px gap-y-px scale-110 p-0 rounded-md">
       {Array.from({ length: rows }).map((_, row) =>
