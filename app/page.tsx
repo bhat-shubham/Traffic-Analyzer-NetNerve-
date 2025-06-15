@@ -139,11 +139,6 @@ export default function Home() {
         <div className="w-1/3 rounded-md ">
           <div className="file-upload opacity-0">
             <FileUpload />
-            <button className="mt-2 btn btn-dash text-xl w-full">
-              Analyse My Packet
-            </button>
-
-            {/* </FileUpload> */}
           </div>
         </div>
       </div>

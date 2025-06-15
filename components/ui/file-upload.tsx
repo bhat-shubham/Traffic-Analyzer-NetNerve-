@@ -5,6 +5,7 @@ import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 import { CgFileRemove } from "react-icons/cg";
 import { toast } from "react-hot-toast";
+import { IoArrowRedoSharp} from "react-icons/io5";
 const mainVariant = {
   initial: {
     x: 0,
@@ -95,11 +96,13 @@ export const FileUpload = ({
         </div>
         <div className="flex flex-col items-center justify-center">
           <p className="relative z-20 font-sans font-bold text-neutral-700 dark:text-neutral-300 text-base">
-            Upload your packet capture file
+            Upload Your Packet Capture File Here
           </p>
           <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">
-            Drop your files here or click to upload(.cap or.pcap)
+            Drop Your Files Here or Click to Upload ( .cap or .pcap )
           </p>
+          
+          
           <div className="relative w-full mt-10 max-w-xl mx-auto">
             {files.length > 0 &&
               files.map((file, idx) => (
@@ -111,7 +114,7 @@ export const FileUpload = ({
                     "shadow-sm"
                   )}
                 >
-                  <div className="flex justify-between w-full items-center gap-1">
+                  <div className="flex justify-between w-full items-center gap-4">
                     <motion.p
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -137,6 +140,11 @@ export const FileUpload = ({
                     />
                     </div>
                   </div>
+                  <button className="mt-5 btn btn-dash text-xl w-full">
+                    Analyse My Packet
+                    <IoArrowRedoSharp/>
+                  </button>
+                  
                 </motion.div>
               ))}
             {!files.length && (
@@ -161,10 +169,10 @@ export const FileUpload = ({
                     className="text-neutral-600 flex flex-col items-center"
                   >
                     Drop it
-                    <IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-400" />
+                    <IconUpload className="h-6 w-6 text-neutral-600 dark:text-neutral-400" />
                   </motion.p>
                 ) : (
-                  <IconUpload className="h-4 w-4 text-neutral-600 dark:text-neutral-300" />
+                  <IconUpload className="h-6 w-6 text-neutral-600 dark:text-neutral-300" />
                 )}
               </motion.div>
             )}
