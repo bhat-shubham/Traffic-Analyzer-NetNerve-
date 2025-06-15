@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { IconUpload } from "@tabler/icons-react";
 import { useDropzone } from "react-dropzone";
 import { CgFileRemove } from "react-icons/cg";
-
+import { toast } from "react-hot-toast";
 const mainVariant = {
   initial: {
     x: 0,
@@ -43,7 +43,7 @@ export const FileUpload = ({
   const handleClick = () => {
     fileInputRef.current?.click();
   };
-
+  // removing files
   const handleRemove = (fileToRemove: File) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file !== fileToRemove));
   };
@@ -56,7 +56,25 @@ export const FileUpload = ({
       console.log(error);
     },
   });
-
+  const [inputKey, setInputKey] = useState(0);
+  // Extension Check
+  const allowedFileTypes = [".cap", ".pcap"];
+  const fileExt = files.length > 0 ? files[0].name.split(".").pop()?.toLowerCase() : undefined;
+  if (fileExt && !allowedFileTypes.includes(`.${fileExt}`)) {
+    // alert("Unsupported file type. Please upload a .cap or .pcap file.");
+    setInputKey(prev => prev + 1);
+    setFiles([]); // Clear files on unsupported type
+    toast.error("Please Upload a .cap or .pcap File." ,{
+      style:{
+        borderRadius: "8px",
+        backgroundColor: "#202F34",
+        color: "#fff",
+        // width: "800px",
+      }
+    
+    });
+    return;
+  }
   return (
     <div className="w-full" {...getRootProps()}>
       <motion.div
@@ -64,6 +82,7 @@ export const FileUpload = ({
         className="p-10 group/file block rounded-lg w-full relative overflow-hidden"
       >
         <input
+          key={inputKey}
           ref={fileInputRef}
           id="file-upload-handle"
           type="file"

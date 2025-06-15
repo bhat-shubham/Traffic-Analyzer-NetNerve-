@@ -10,6 +10,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Horizontalscroll from "../components/ui/horizontalscroll";
 import Footer from "../components/ui/footer";
 import Features from "../components/ui/features";
+import { Toaster } from 'react-hot-toast';
 import {AnimatedTestimonials,testimonials} from "../components/ui/animated-testimonials";
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 
@@ -17,7 +18,7 @@ export default function Home() {
   const headline = useRef(null);
   const working = useRef(null);
   const para = useRef(null);
-  const featureRef = useRef<HTMLDivElement>(null);  // Create the ref here
+  const featureRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     gsap.set(headline.current, { visibility: "visible" });
