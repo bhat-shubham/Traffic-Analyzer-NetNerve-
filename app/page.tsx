@@ -10,7 +10,6 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Horizontalscroll from "../components/ui/horizontalscroll";
 import Footer from "../components/ui/footer";
 import Features from "../components/ui/features";
-import { Toaster } from 'react-hot-toast';
 import {AnimatedTestimonials,testimonials} from "../components/ui/animated-testimonials";
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 
