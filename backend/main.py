@@ -9,9 +9,9 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000","https://netnerve.onrender.com/","https://netnerve.vercel.app/"],
+    allow_origins=["http://localhost:3000","https://netnerve.onrender.com","https://netnerve.vercel.app"],
     allow_credentials=True,
-    allow_methods=["POST"],
+    allow_methods=["POST","OPTIONS"],
     allow_headers=["Content-Type"],
 )
 @app.get("/")
