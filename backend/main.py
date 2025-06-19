@@ -14,6 +14,9 @@ app.add_middleware(
     allow_methods=["POST"],
     allow_headers=["Content-Type"],
 )
+@app.get("/")
+async def root():
+    return {"message": "NetNerve backend is live!"}
 def extract_packet_data(file_path):
     packets = rdpcap(file_path)
     data = []
@@ -83,5 +86,4 @@ async def create_upload_file(file: UploadFile):
     return {
         "protocols": list(protocols),
         "packet_data": packet_data,
-        "file.filename":file.filename,
     }
