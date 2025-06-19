@@ -27,7 +27,14 @@ async def create_upload_file(file: UploadFile):
     a=rdpcap("temp.cap")
     protocols=set()
     for packet in a:
-        protocols.add(packet.name)
+        layer = packet
+        while layer:
+            protocols.add(layer.__class__.__name__)
+            layer = layer.payload  # move to next inner layer
+
+    return {"protocols": list(protocols)}
+
+        # protocols.add(packet.name)
         
         # if packet.haslayer("IP"):
         #     print(f"Source IP: {packet["IP"].src}, Destination IP: {packet["IP"].dst}")
