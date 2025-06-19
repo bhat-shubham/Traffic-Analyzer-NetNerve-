@@ -10,6 +10,13 @@
 !.yarn/releases
 !.yarn/versions
 
+# Python
+backend/__pycache__/
+backend/**/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
 # testing
 /coverage
 
@@ -40,10 +47,3 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .gitignore
-/backend/__pycache__
-
-# Python cache files
-__pycache__/
-*.py[cod]
-*$py.class
-.pytest_cache/
