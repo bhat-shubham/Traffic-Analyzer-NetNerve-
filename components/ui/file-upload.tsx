@@ -54,10 +54,11 @@ export const FileUpload = ({
       if(files.length===0){
         toast.error("Please Upload A File Before Submitting")
       }
+      
       const formData = new FormData();
       formData.append("file", files[0]);
       try{
-        const response = await fetch("http://localhost:8000/upload/",{
+        const response = await fetch("http://localhost:8000/uploadfile/",{
           method:"POST",
           body: formData,
         });
