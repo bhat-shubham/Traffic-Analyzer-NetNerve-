@@ -1,18 +1,17 @@
 from typing import Annotated
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, HTTPException, UploadFile
 from scapy.all import rdpcap
 from scapy.layers.inet import IP, TCP, UDP, ICMP
 from scapy.layers.l2 import ARP
-
-
+import uuid,os
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["POST"],
     allow_headers=["*"],
 )
 def extract_packet_data(file_path):
@@ -58,11 +57,20 @@ def extract_packet_data(file_path):
 @app.post("/uploadfile/")
 
 async def create_upload_file(file: UploadFile):
-    file_path= "temp.cap"
+    MAX_FILE_SIZE_MB = 5
+    
+    if not (file.filename and (file.filename.endswith(".pcap") or file.filename.endswith(".cap"))):
+        raise HTTPException(status_code=400, detail="Invalid file type.")
+    file_path= f"{uuid.uuid4()}.pcap"
     content = await file.read();
+    if(len(content) > MAX_FILE_SIZE_MB * 1024 * 1024):
+        raise HTTPException(status_code=400, detail="File size exceeds the limit of 5MB.")
     with open(file_path, "wb") as f:
         f.write(content)
-    packets=rdpcap("temp.cap")
+    try:
+        packets=rdpcap(file_path)
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=f"Invalid or corrupted pcap file: {e}")
     protocols=set()
     for packet in packets:
         layer = packet
@@ -70,7 +78,9 @@ async def create_upload_file(file: UploadFile):
             protocols.add(layer.__class__.__name__)
             layer = layer.payload  # move to next inner layer
     packet_data = extract_packet_data(file_path)
+    os.remove(file_path)  # Clean up the temporary file after processing
     return {
         "protocols": list(protocols),
-        "packet_data": packet_data
+        "packet_data": packet_data,
+        "file.filename":file.filename,
     }
