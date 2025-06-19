@@ -12,7 +12,7 @@ app.add_middleware(
     allow_origins=["http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["POST"],
-    allow_headers=["*"],
+    allow_headers=["Content-Type"],
 )
 def extract_packet_data(file_path):
     packets = rdpcap(file_path)
@@ -58,9 +58,10 @@ def extract_packet_data(file_path):
 
 async def create_upload_file(file: UploadFile):
     MAX_FILE_SIZE_MB = 5
-    
-    if not (file.filename and (file.filename.endswith(".pcap") or file.filename.endswith(".cap"))):
-        raise HTTPException(status_code=400, detail="Invalid file type.")
+    valid_extensions = [".pcap", ".cap"]
+
+    if not (file.filename and file.filename.lower().endswith(tuple(valid_extensions))):
+        raise HTTPException(status_code=400, detail="Invalid file extension.")
     file_path= f"{uuid.uuid4()}.pcap"
     content = await file.read();
     if(len(content) > MAX_FILE_SIZE_MB * 1024 * 1024):
