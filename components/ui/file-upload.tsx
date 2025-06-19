@@ -58,7 +58,7 @@ export const FileUpload = ({
       const formData = new FormData();
       formData.append("file", files[0]);
       try{
-        const response = await fetch("http://localhost:8000/uploadfile/",{
+        const response = await fetch("https://netnerve.onrender.com/uploadfile/",{
           method:"POST",
           body: formData,
         });
