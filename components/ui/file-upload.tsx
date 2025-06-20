@@ -37,7 +37,7 @@ export const FileUpload = ({
   const [progress, setProgress] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const maxSize = 2 * 1024 * 1024;
   const handleFileChange = (newFiles: File[]) => {
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -124,6 +124,11 @@ export const FileUpload = ({
     });
     return;
   }
+  if (files.length > 0 && files[0].size > maxSize) {
+    toast.error("File size exceeds 2MB limit,Kindly upload a smaller file");
+    setFiles([]); // Clear files on size limit exceeded
+    setInputKey(prev => prev + 1); // Reset input to allow re-upload
+  }
   return (
     <div className="w-full" {...getRootProps()}>
       <motion.div
@@ -149,7 +154,7 @@ export const FileUpload = ({
           <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">
             Drop Your Files Here or Click to Upload ( .cap or .pcap )
           </p>
-          
+          <p>Currently ,Only Files Below ~2MB Can Be Processed</p>
           
           <div className="relative w-full mt-10 max-w-xl mx-auto">
             {files.length > 0 &&
@@ -197,7 +202,7 @@ export const FileUpload = ({
                       animate={{ opacity: 1 }}
                       className="text-white"
                     >
-                      Uploading... {progress}%
+                      Uploading  {progress}%
                     </motion.p>
                   )}
                     {!isLoading && (

@@ -60,7 +60,7 @@ def extract_packet_data(file_path):
 @app.post("/uploadfile/")
 
 async def create_upload_file(file: UploadFile):
-    MAX_FILE_SIZE_MB = 5
+    MAX_FILE_SIZE_MB = 2
     valid_extensions = [".pcap", ".cap"]
 
     if not (file.filename and file.filename.lower().endswith(tuple(valid_extensions))):
