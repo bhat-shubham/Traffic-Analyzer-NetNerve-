@@ -6,6 +6,7 @@ import { useDropzone } from "react-dropzone";
 import { CgFileRemove } from "react-icons/cg";
 import { toast } from "react-hot-toast";
 import { IoArrowRedoSharp} from "react-icons/io5";
+import axios from "axios";
 const mainVariant = {
   initial: {
     x: 0,
@@ -33,6 +34,8 @@ export const FileUpload = ({
   onChange?: (files: File[]) => void;
 }) => {
   const [files, setFiles] = useState<File[]>([]);
+  const [progress, setProgress] = useState<number>(0);
+  const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (newFiles: File[]) => {
@@ -57,13 +60,33 @@ export const FileUpload = ({
       
       const formData = new FormData();
       formData.append("file", files[0]);
+      
+      try {
+        setIsLoading(true);
+        await axios.post("https://netnerve.onrender.com/uploadfile/", formData, {
+          onUploadProgress: (axiosProgressEvent) => {
+            if (typeof axiosProgressEvent.total === "number" && axiosProgressEvent.total > 0) {
+              const percent = Math.round((axiosProgressEvent.loaded * 100) / axiosProgressEvent.total);
+              setProgress(percent);
+              toast.success("Files Uploaded!", );
+            }
+            
+      },
+      
+    });
+  } catch (error) {
+    toast.error("Upload failed");
+  } finally {
+    setIsLoading(false);
+  }
       try{
+        setIsLoading(true);
         const response = await fetch("https://netnerve.onrender.com/uploadfile/",{
           method:"POST",
           body: formData,
         });
         if (response.ok){
-          toast.success("File Uploaded Successfully")
+          toast.success("File Processed Successfully")
         }
         const result= await response.json();
         console.log(result);
@@ -165,8 +188,8 @@ export const FileUpload = ({
                     />
                     </div>
                   </div>
-                  <div className="rounded-2xl z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width:"100%" }}>
-                  <button onClick={handleSubmit} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
+                  <div className="rounded-2xl z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
+                  <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
                     Analyse My Packet
                     <div>
                     <IoArrowRedoSharp className=""/>
