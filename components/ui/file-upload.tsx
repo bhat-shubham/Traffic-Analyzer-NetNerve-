@@ -165,10 +165,17 @@ export const FileUpload = ({
                     />
                     </div>
                   </div>
-                  <button onClick={handleSubmit} className="mt-5 btn btn-dash text-xl w-full">
+                  <div className="rounded-2xl z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width:"100%" }}>
+                  <button onClick={handleSubmit} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
                     Analyse My Packet
-                    <IoArrowRedoSharp/>
+                    <div>
+                    <IoArrowRedoSharp className=""/>
+                    </div>
                   </button>
+                  </div>
+                  {/* <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+  <div className="bg-green-600 h-2.5 rounded-full dark:bg-green-500" style={{ width: "9%" }}></div>
+</div> */}
                   
                 </motion.div>
               ))}
