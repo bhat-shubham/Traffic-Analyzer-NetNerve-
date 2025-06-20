@@ -51,16 +51,16 @@ export const FileUpload = ({
   // removing files
   const handleRemove = (fileToRemove: File) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file !== fileToRemove));
+    setProgress(0);
+    setIsLoading(false);
   };
   const handleSubmit = async () =>
     {
       if(files.length===0){
         toast.error("Please Upload A File Before Submitting")
       }
-      
       const formData = new FormData();
       formData.append("file", files[0]);
-      
       try {
         setIsLoading(true);
         await axios.post("https://netnerve.onrender.com/uploadfile/", formData, {
@@ -104,6 +104,7 @@ export const FileUpload = ({
     onDrop: handleFileChange,
     onDropRejected: (error) => {
       console.log(error);
+      toast.error("Upload Failed,Try Again")
     },
   });
   const [inputKey, setInputKey] = useState(0);
@@ -111,7 +112,6 @@ export const FileUpload = ({
   const allowedFileTypes = [".cap", ".pcap"];
   const fileExt = files.length > 0 ? files[0].name.split(".").pop()?.toLowerCase() : undefined;
   if (fileExt && !allowedFileTypes.includes(`.${fileExt}`)) {
-    // alert("Unsupported file type. Please upload a .cap or .pcap file.");
     setInputKey(prev => prev + 1);
     setFiles([]); // Clear files on unsupported type
     toast.error("Only .cap or .pcap files are supported" ,{
@@ -188,11 +188,11 @@ export const FileUpload = ({
                     />
                     </div>
                   </div>
-                  <div className="rounded-2xl transition-all duration-900 z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
+                  <div className="rounded-2xl transition-all duration-500 z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
                   <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
                   {isLoading && (
                     <motion.p
-                      transition={{ duration:1}}
+                      transition={{ duration:0.5}}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       className="text-white"
