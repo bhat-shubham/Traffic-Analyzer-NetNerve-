@@ -38,6 +38,7 @@ export const FileUpload = ({
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const maxSize = 2 * 1024 * 1024;
+  const [showComplete, setShowComplete] = useState(false);
   const handleFileChange = (newFiles: File[]) => {
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -69,7 +70,10 @@ export const FileUpload = ({
               const percent = Math.round((axiosProgressEvent.loaded * 100) / axiosProgressEvent.total);
               setProgress(percent);
             if( percent === 100) {
-                toast.success("File Uploaded Successfully")
+              setShowComplete(true);
+              setTimeout(() =>
+                setShowComplete(false),1000);
+              toast.success("File Uploaded Successfully")
             }
           }
       },
@@ -125,7 +129,7 @@ export const FileUpload = ({
     return;
   }
   if (files.length > 0 && files[0].size > maxSize) {
-    toast.error("File size exceeds 2MB limit,Kindly upload a smaller file");
+    toast.error("Size Excedded,Upload a file<2MB");
     setFiles([]); // Clear files on size limit exceeded
     setInputKey(prev => prev + 1); // Reset input to allow re-upload
   }
@@ -154,8 +158,7 @@ export const FileUpload = ({
           <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">
             Drop Your Files Here or Click to Upload ( .cap or .pcap )
           </p>
-          <p>Currently ,Only Files Below ~2MB Can Be Processed</p>
-          
+          <p className="font-sans font-normal text-white mt-1" >* Only Files Below ~2MB Can Be Processed For Now</p>
           <div className="relative w-full mt-10 max-w-xl mx-auto">
             {files.length > 0 &&
               files.map((file, idx) => (
@@ -195,19 +198,40 @@ export const FileUpload = ({
                   </div>
                   <div className="rounded-2xl transition-all duration-500 z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
                   <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
-                  {isLoading && (
-                    <motion.p
-                      transition={{ duration:0.5}}
+                    {isLoading && (
+                      showComplete ? (
+                      <motion.p
+                      transition={{ duration: 0.5 }}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       className="text-white"
-                    >
-                      Uploading  {progress}%
-                    </motion.p>
-                  )}
+                      >
+                        Done!
+                        </motion.p>
+                        ) : progress === 100 ? (
+                        <motion.p
+                        transition={{ duration: 1 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="text-white "
+                        >
+                          Processing...
+                          </motion.p>
+                          ) : (
+                          <motion.p
+                          transition={{ duration: 0.5 }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          className="text-white"
+                          >
+                            Uploading {progress}%
+                            </motion.p>
+                            )
+                      )}
                     {!isLoading && (
                       <p>Analyze My Packet</p>
                     )}
+                    
                     <div>
                     <IoArrowRedoSharp className=""/>
                     </div>
