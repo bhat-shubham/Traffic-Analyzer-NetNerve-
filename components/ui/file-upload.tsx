@@ -67,12 +67,10 @@ export const FileUpload = ({
           onUploadProgress: (axiosProgressEvent) => {
             if (typeof axiosProgressEvent.total === "number" && axiosProgressEvent.total > 0) {
               const percent = Math.round((axiosProgressEvent.loaded * 100) / axiosProgressEvent.total);
-              setProgress(percent);
-              toast.success("Files Uploaded!", );
+              setProgress(percent);    
             }
-            
+ 
       },
-      
     });
   } catch (error) {
     toast.error("Upload failed");
@@ -188,18 +186,26 @@ export const FileUpload = ({
                     />
                     </div>
                   </div>
-                  <div className="rounded-2xl z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
+                  <div className="rounded-2xl transition-all duration-900 z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
                   <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
-                    Analyse My Packet
+                  {isLoading && (
+                    <motion.p
+                      transition={{ duration:1}}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="text-white"
+                    >
+                      Uploading... {progress}%
+                    </motion.p>
+                  )}
+                    {!isLoading && (
+                      <p>Analyze My Packet</p>
+                    )}
                     <div>
                     <IoArrowRedoSharp className=""/>
                     </div>
                   </button>
                   </div>
-                  {/* <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-  <div className="bg-green-600 h-2.5 rounded-full dark:bg-green-500" style={{ width: "9%" }}></div>
-</div> */}
-                  
                 </motion.div>
               ))}
             {!files.length && (
