@@ -7,7 +7,6 @@ import { CgFileRemove } from "react-icons/cg";
 import { toast } from "react-hot-toast";
 import { IoArrowRedoSharp} from "react-icons/io5";
 import axios from "axios";
-import { delay } from "motion";
 const mainVariant = {
   initial: {
     x: 0,
@@ -73,7 +72,6 @@ export const FileUpload = ({
                 toast.success("File Uploaded Successfully")
             }
           }
- 
       },
     });
   } catch {
