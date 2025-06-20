@@ -72,7 +72,7 @@ export const FileUpload = ({
             if( percent === 100) {
               setShowComplete(true);
               setTimeout(() =>
-                setShowComplete(false),1000);
+                setShowComplete(false),2000);
               toast.success("File Uploaded Successfully")
             }
           }
@@ -206,7 +206,7 @@ export const FileUpload = ({
                       animate={{ opacity: 1 }}
                       className="text-white"
                       >
-                        Done!
+                        Uploading Done!
                         </motion.p>
                         ) : progress === 100 ? (
                         <motion.p
@@ -215,7 +215,7 @@ export const FileUpload = ({
                         animate={{ opacity: 1 }}
                         className="text-white "
                         >
-                          Processing...
+                          Processing....
                           </motion.p>
                           ) : (
                           <motion.p

@@ -15,9 +15,15 @@ gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 
 export default function Home() {
   const headline = useRef(null);
-  const working = useRef(null);
+  const working = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const para = useRef(null);
-  const featureRef = useRef<HTMLDivElement>(null);
+  const homeRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+  const featureRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+  const testimonialRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+
+  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   useGSAP(() => {
     gsap.set(headline.current, { visibility: "visible" });
@@ -99,7 +105,7 @@ export default function Home() {
   return (
     <div
       className="parent bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
-  <div className="h-screen flex-col align-middle items-center">
+  <div ref={homeRef} className="h-screen flex-col align-middle items-center">
       <div className="py-5 navbar">
         <div className="flex-1">
           <a href="" className="px-8 text-3xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">NetNerve</a>
@@ -108,13 +114,16 @@ export default function Home() {
         <div className="flex-none">
           <ul className="menu menu-horizontal px-15 gap-10">
             <li>
-              <a>Home</a>
+              <button onClick={() => scrollToSection(homeRef)}>Home</button>
             </li>
             <li>
-              <a>About</a>
+              <button onClick={() => scrollToSection(featureRef)}>Features</button>
             </li>
             <li>
-              <a>Feedback</a>
+              <button onClick={() => scrollToSection(working)}>Working</button>
+            </li>
+            <li>
+              <button onClick={() => scrollToSection(testimonialRef)}>Testimonials</button>
             </li>
           </ul>
         </div>
@@ -147,7 +156,7 @@ export default function Home() {
       <div ref={working} className="h-[50x]">
        <Horizontalscroll />
       </div>
-      <div className="h-[98vh] items-center justify-center align-middle">
+      <div ref={testimonialRef} className="h-[98vh] items-center justify-center align-middle">
         <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl text-center">
           Testimonials
         </h1>
