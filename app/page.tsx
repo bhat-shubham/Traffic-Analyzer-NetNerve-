@@ -61,7 +61,6 @@ export default function Home() {
       stagger: 0.05,
       duration: 1,
       ease: "back.out(1.7)",
-      scrub: 0.5,
     });
     gsap.from(working.current, {
       scrollTrigger: working.current,

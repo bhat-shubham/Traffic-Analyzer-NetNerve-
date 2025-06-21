@@ -35,10 +35,12 @@ export const FileUpload = ({
 }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [progress, setProgress] = useState<number>(0);
+  const isCancelledRef=useRef(false);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const maxSize = 2 * 1024 * 1024;
   const [showComplete, setShowComplete] = useState(false);
+  const controllerRef = useRef<AbortController | null>(null);
   const handleFileChange = (newFiles: File[]) => {
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -53,10 +55,19 @@ export const FileUpload = ({
   const handleRemove = (fileToRemove: File) => {
     setFiles((prevFiles) => prevFiles.filter((file) => file !== fileToRemove));
     setProgress(0);
+    isCancelledRef.current=true;
     setIsLoading(false);
+    setFiles([]);
+    // console.log(progress);
+    controllerRef.current?.abort();
+    toast.error("Operation Cancelled By User")
+
   };
+  let controller = new AbortController();
   const handleSubmit = async () =>
     {
+      controller = new AbortController();
+      isCancelledRef.current=false
       if(files.length===0){
         toast.error("Please Upload A File Before Submitting")
       }
@@ -65,15 +76,19 @@ export const FileUpload = ({
       try {
         setIsLoading(true);
         await axios.post("https://netnerve.onrender.com/uploadfile/", formData, {
+          signal: controller.signal,
           onUploadProgress: (axiosProgressEvent) => {
             if (typeof axiosProgressEvent.total === "number" && axiosProgressEvent.total > 0) {
               const percent = Math.round((axiosProgressEvent.loaded * 100) / axiosProgressEvent.total);
               setProgress(percent);
-            if( percent === 100) {
-              setShowComplete(true);
-              setTimeout(() =>
-                setShowComplete(false),2000);
-              toast.success("File Uploaded Successfully")
+              // console.log(percent)
+              // console.log(progress)
+              // setPercent(newpercent);
+                  if(percent===100 && !isCancelledRef.current){
+                    setShowComplete(true);
+                    setTimeout(() =>
+                      setShowComplete(false),2000);
+                    toast.success("File Uploaded Successfully")
             }
           }
       },
@@ -187,14 +202,19 @@ export const FileUpload = ({
                     >
                       {(file.size / (1024 * 1024)).toFixed(2)} MB
                     </motion.p> */}
-                    <div className="tooltip" data-tip="Remove">
+                    <motion.div 
+                    whileHover={{scale:1.2}} 
+                    className="tooltip" 
+                    data-tip="Remove"
+                    whileTap={{ scale:0.5 }}
+                    transition={{duration: 0.2,type: "spring",stiffness: 300,damping: 20,}}
+                    >
                     <CgFileRemove
-                    
                       size={20}
                       onClick={() => handleRemove(file)}
                       className="cursor-pointer"
                     />
-                    </div>
+                    </motion.div>
                   </div>
                   <div className="rounded-2xl transition-all duration-500 z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
                   <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
@@ -210,9 +230,10 @@ export const FileUpload = ({
                         </motion.p>
                         ) : progress === 100 ? (
                         <motion.p
-                        transition={{ duration: 1 }}
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
+                        key={"processing"}
+                        transition={{ duration: 0.5, type: "spring",stiffness: 500, damping: 20,}}
+                        initial={{ opacity: 0 ,y:-10}}
+                        animate={{ opacity: 1 ,y:0 }}
                         className="text-white "
                         >
                           Processing....
@@ -224,7 +245,7 @@ export const FileUpload = ({
                           animate={{ opacity: 1 }}
                           className="text-white"
                           >
-                            Uploading {progress}%
+                            📂Uploading  {progress}%
                             </motion.p>
                             )
                       )}
@@ -248,6 +269,7 @@ export const FileUpload = ({
                   type: "spring",
                   stiffness: 300,
                   damping: 20,
+                  duration: 2,
                 }}
                 className={cn(
                   "cursor-pointer relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-[#202F34] flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
