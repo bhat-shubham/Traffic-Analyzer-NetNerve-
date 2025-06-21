@@ -36,6 +36,7 @@ export const FileUpload = ({
   const [files, setFiles] = useState<File[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const isCancelledRef=useRef(false);
+  const [isProcessed, setIsProcessed] = useState(false);;
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const maxSize = 2 * 1024 * 1024;
@@ -58,6 +59,7 @@ export const FileUpload = ({
     isCancelledRef.current=true;
     setIsLoading(false);
     setFiles([]);
+    setIsProcessed(false);
     // console.log(progress);
     controllerRef.current?.abort();
     toast.error("Operation Cancelled By User")
@@ -81,14 +83,10 @@ export const FileUpload = ({
             if (typeof axiosProgressEvent.total === "number" && axiosProgressEvent.total > 0) {
               const percent = Math.round((axiosProgressEvent.loaded * 100) / axiosProgressEvent.total);
               setProgress(percent);
-              // console.log(percent)
-              // console.log(progress)
-              // setPercent(newpercent);
                   if(percent===100 && !isCancelledRef.current){
                     setShowComplete(true);
                     setTimeout(() =>
                       setShowComplete(false),2000);
-                    toast.success("File Uploaded Successfully")
             }
           }
       },
@@ -105,6 +103,7 @@ export const FileUpload = ({
           body: formData,
         });
         if (response.ok){
+          setIsProcessed(true);
           toast.success("File Processed Successfully")
         }
         const result= await response.json();
@@ -218,41 +217,50 @@ export const FileUpload = ({
                   </div>
                   <div className="rounded-2xl transition-all duration-500 z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
                   <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
-                    {isLoading && (
-                      showComplete ? (
-                      <motion.p
-                      transition={{ duration: 0.5 }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-white"
-                      >
-                        Uploading Done!
-                        </motion.p>
-                        ) : progress === 100 ? (
+                    <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}>
+                      {isProcessed ? (
                         <motion.p
-                        key={"processing"}
-                        transition={{ duration: 0.5, type: "spring",stiffness: 500, damping: 20,}}
-                        initial={{ opacity: 0 ,y:-10}}
-                        animate={{ opacity: 1 ,y:0 }}
-                        className="text-white "
-                        >
-                          Processing....
+                        key="success"
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, type: "spring", stiffness: 500, damping: 20 }}
+                        className="text-white">
+                          ✅ File Processed Successfully!
                           </motion.p>
-                          ) : (
+                          ) : isLoading ? (progress === 100 ? (showComplete ? (
                           <motion.p
-                          transition={{ duration: 0.5 }}
+                          key="done"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="text-white"
-                          >
-                            📂Uploading  {progress}%
+                          transition={{ duration: 0.5 }}
+                          className="text-white">
+                            ✅ Uploading Done!
                             </motion.p>
-                            )
-                      )}
-                    {!isLoading && (
-                      <p>Analyze My Packet</p>
-                    )}
-                    
+                            ) : (
+                            <motion.p
+                            key="processing"
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, type: "spring", stiffness: 500, damping: 20 }}
+                            className="text-white">
+                              🧠 Processing...
+                              </motion.p>)
+                              ) : (
+                              <motion.p
+                              key="uploading"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.5 }}
+                              className="text-white">
+                                📂 Uploading {progress}%
+                                </motion.p>)
+                                ) : (
+                                <p>📦 Analyze My Packet</p>
+                                )}
+                                </motion.div>
                     <div>
                     <IoArrowRedoSharp className=""/>
                     </div>

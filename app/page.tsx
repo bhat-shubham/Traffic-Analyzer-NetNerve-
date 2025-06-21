@@ -1,5 +1,4 @@
 "use client";
-// import { motion , useTransform, useScroll } from "framer-motion";
 import { FileUpload } from "../components/ui/file-upload";
 import { useRef } from 'react';
 import gsap from 'gsap';
