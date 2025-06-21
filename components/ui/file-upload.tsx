@@ -243,9 +243,9 @@ export const FileUpload = ({
                             ) : (
                             <motion.p
                             key="processing"
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, type: "spring", stiffness: 500, damping: 20 }}
+                            // initial={{ opacity: 0 }}
+                            animate={{color: ["#ffffff", "#A1A1A1", "#ffffff"],}}
+                            transition={{ duration: 2, ease:"easeInOut" ,repeat:Infinity }}
                             className="text-white">
                               🧠 Processing...
                               </motion.p>)
