@@ -85,6 +85,7 @@ export const FileUpload = ({
               setProgress(percent);
                   if(percent===100 && !isCancelledRef.current){
                     setShowComplete(true);
+                    toast.success("File Uploaded Successfully");
                     setTimeout(() =>
                       setShowComplete(false),2000);
             }
