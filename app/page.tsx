@@ -9,6 +9,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 import Horizontalscroll from "../components/ui/horizontalscroll";
 import Footer from "../components/ui/footer";
 import Features from "../components/ui/features";
+import ResultPage from "../components/ui/results";
 import {AnimatedTestimonials,testimonials} from "../components/ui/animated-testimonials";
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 
@@ -163,7 +164,7 @@ export default function Home() {
       <Footer />
       
       {/* background-image: linear-gradient(to right, var(--tw-gradient-stops)); */}
-      
+    <ResultPage />
     </div>
   );
   
