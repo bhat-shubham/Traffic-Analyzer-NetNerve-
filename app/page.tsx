@@ -10,6 +10,7 @@ import Horizontalscroll from "../components/ui/horizontalscroll";
 import Footer from "../components/ui/footer";
 import Features from "../components/ui/features";
 import ResultPage from "../components/ui/results";
+import Link from "next/link";
 import {AnimatedTestimonials,testimonials} from "../components/ui/animated-testimonials";
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 
@@ -113,7 +114,7 @@ export default function Home() {
   <div ref={homeRef} className="h-screen flex-col align-middle items-center">
       <div className="py-5 navbar">
         <div className="flex-1">
-          <a href="" className="px-8 text-3xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">NetNerve</a>
+          <Link href="/" className="px-8 text-3xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">NetNerve</Link>
           <p className="px-8 ">Network&apos;s nerve center, AI-powered.</p>
         </div>
         <div className="flex-none">

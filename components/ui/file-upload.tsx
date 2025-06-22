@@ -90,7 +90,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed }: FileUpload
                     setShowComplete(true);
                     toast.success("File Uploaded Successfully");
                     setTimeout(() =>
-                      setShowComplete(false),2000);
+                      setShowComplete(false),1500);
             }
           }
       },
@@ -108,9 +108,10 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed }: FileUpload
         });
         if (response.ok){
           setTimeout(() =>
-                      setIsProcessed(true),2000);
-          // setIsProcessed(true);
-          toast.success("File Processed Successfully")
+            setIsProcessed(true),2000);
+          setTimeout(() =>
+            toast.success("File Processed Successfully"),2000);
+          // toast.success("File Processed Successfully")
         }
         const result= await response.json();
         console.log(result);
@@ -226,13 +227,13 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed }: FileUpload
                     <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}>
+                    transition={{ duration: 0.2 }}>
                       {isProcessed ? (
                         <motion.p
                         key="success"
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, type: "spring", stiffness: 500, damping: 20 }}
+                        transition={{ duration: 0.1, type: "spring", stiffness: 500, damping: 20 }}
                         className="text-white">
                           ✅ File Processed Successfully!
                           </motion.p>
