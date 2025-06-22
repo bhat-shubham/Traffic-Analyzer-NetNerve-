@@ -1,6 +1,6 @@
 "use client";
 import { FileUpload } from "../components/ui/file-upload";
-import { useRef } from 'react';
+import { useRef , useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import {SplitText} from "gsap/SplitText";
@@ -17,6 +17,7 @@ export default function Home() {
   const headline = useRef(null);
   const working = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const para = useRef(null);
+  const [isProcessed, setIsProcessed] = useState(false);
   const homeRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const featureRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const testimonialRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
@@ -102,6 +103,11 @@ export default function Home() {
   });
 
   return (
+    <>
+    {
+      isProcessed ? (
+        <ResultPage />
+      ) : (
     <div
       className="parent bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
   <div ref={homeRef} className="h-screen flex-col align-middle items-center">
@@ -146,7 +152,7 @@ export default function Home() {
         </div>
         <div className="w-1/3 rounded-md ">
           <div className="file-upload opacity-0">
-            <FileUpload />
+            <FileUpload setIsProcessed={setIsProcessed} isProcessed={isProcessed}/>
           </div>
         </div>
       </div>
@@ -164,8 +170,9 @@ export default function Home() {
       <Footer />
       
       {/* background-image: linear-gradient(to right, var(--tw-gradient-stops)); */}
-    <ResultPage />
     </div>
+      )}
+      </>
   );
   
 }

@@ -29,15 +29,17 @@ const secondaryVariant = {
   },
 };
 
-export const FileUpload = ({
-  onChange,
-}: {
+type FileUploadProps = {
   onChange?: (files: File[]) => void;
-}) => {
+  setIsProcessed: React.Dispatch<React.SetStateAction<boolean>>;
+  isProcessed?: boolean;
+};
+
+export const FileUpload = ({ onChange, setIsProcessed, isProcessed }: FileUploadProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const isCancelledRef=useRef(false);
-  const [isProcessed, setIsProcessed] = useState(false);;
+  // const [isProcessed, setIsProcessed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const maxSize = 2 * 1024 * 1024;
@@ -105,7 +107,9 @@ export const FileUpload = ({
           body: formData,
         });
         if (response.ok){
-          setIsProcessed(true);
+          setTimeout(() =>
+                      setIsProcessed(true),2000);
+          // setIsProcessed(true);
           toast.success("File Processed Successfully")
         }
         const result= await response.json();

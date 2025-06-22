@@ -2,6 +2,7 @@ import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import { ReactNode } from "react";
 import { FaUpload, FaBrain, FaChartBar } from "react-icons/fa";
+import { LuFileDigit } from "react-icons/lu";
 const Example = () => {
   return (
     <div className="bg-neutral-800">
@@ -17,7 +18,7 @@ const HorizontalScrollCarousel = () => {
     target: targetRef,
   });
 
-  const x = useTransform(scrollYProgress, [0, 1], ["15%", "-50%"]);
+  const x = useTransform(scrollYProgress, [0, 1], ["11%", "-65%"]);
 
   return (
     <section ref={targetRef} className="relative h-[400vh] bg-gradient-to-r from-[#1B3A31] to-[#253E36]">
@@ -82,6 +83,12 @@ const cards: CardType[] = [
     description: "Upload your packet capture (.pcap/.cap) file securely to begin the analysis.",
     id: 1,
     icon: <FaUpload />,
+  },
+  {
+    description: "Extract Meaningful Data Using Python From The File To Feed The AI",
+    title: "Extract",
+    id: 4,
+    icon: <LuFileDigit />,
   },
   {
     description: "Our AI engine inspects the file, detects anomalies, and identifies threats.",
