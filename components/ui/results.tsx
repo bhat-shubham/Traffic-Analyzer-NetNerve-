@@ -17,26 +17,21 @@ type ResultPageProps = {
   file: File | null;
   protocols: string[];
   packetData: Packet[];
+  totalDataSize : number[];
+  
 };
-const ResultPage = ({file , protocols , packetData}: ResultPageProps) => {
+const ResultPage = ({file , protocols , packetData, totalDataSize}: ResultPageProps) => {
     const fileName = file?.name ?? "No file uploaded yet";
     const fileSize = file ? `${(file.size / 1024).toFixed(2)} KB` : "N/A";
-    // const [showAllPackets, setShowAllPackets] = useState(false);
-    // const displayedPackets = showAllPackets ? packetData : packetData.slice(0, 10);
+
 const timestamps = packetData
   .map(pkt => pkt.timestamp)
   .filter(Boolean) // remove undefined/null
   .map(ts => new Date(Number(ts) * 1000)); // convert to Date
 
-// if (timestamps.length > 0) {
-//   const minDate = new Date(Math.min(...timestamps.map(ts => ts.getTime())));
-//   const maxDate = new Date(Math.max(...timestamps.map(ts => ts.getTime())));
-// }
 const startTime = Math.min(...timestamps.map(ts => ts.getTime())); 
 const endTime = Math.max(...timestamps.map(ts => ts.getTime())); 
-// const { start, end } = getTimeRange();
-
-
+// const { start, end } = getTimeRange(); 
     // const fileType = file?.type ?? "Unknown";
   return (
     <motion.div
@@ -61,7 +56,7 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
           Here&apos;s What Our Analysis Found
         </h1>
       </div>
-      <div className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-xl border border-white/20 p-6 rounded-2xl text-2xl font-bold space-y-4 mt-10">
+      <div className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-xl border border-white/20 p-6 rounded-2xl text-xl font-bold space-y-4 mt-10">
         <p>
           <FaFileAlt className="inline-block mr-2 text-xl" />
           Uploaded File : | {fileName} |
@@ -145,7 +140,21 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
     <h2 className="text-white text-xl font-semibold mb-2">Total Data Size :</h2>
-    <p className="text-white/80">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum dolor explicabo perspiciatis. Culpa inventore dolor commodi esse praesentium doloremque, qui perferendis eum expedita architecto repellendus quisquam doloribus iste natus facilis!</p>
+    <p className="bg-white/10 text-white py-5 mt-7 text-center font-bold rounded-xl text-xl shadow border border-white/20">
+    {(() => {
+      const total = Array.isArray(totalDataSize) ? totalDataSize.reduce((acc, val) => acc + val, 0) : totalDataSize;
+      return total > 1024 * 1024
+        ? `${(total / (1024 * 1024)).toFixed(2)} MB`
+        : `${(total / 1024).toFixed(2)} KB`;
+    })()}
+      {(() => {
+    const total = Array.isArray(totalDataSize) ? totalDataSize.reduce((acc, val) => acc + val, 0) : totalDataSize;
+    // Extract numeric value from fileSize string (e.g., "123.45 KB")
+    const fileSizeNum = typeof fileSize === "string" ? parseFloat(fileSize) : 0;
+    const percent = fileSizeNum > 0 ? ((total / (fileSizeNum * 1024)) * 100).toFixed(1) : "0";
+    return `(~${percent}% of file size)`;
+  })()}
+  </p>
   </div>
 </div>
 

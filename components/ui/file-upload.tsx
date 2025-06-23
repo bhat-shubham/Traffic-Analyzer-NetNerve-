@@ -37,9 +37,10 @@ type FileUploadProps = {
   setProtocols: React.Dispatch<React.SetStateAction<string[]>>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setPacketData: React.Dispatch<React.SetStateAction<any[]>>;
+  setTotalDataSize :React.Dispatch<React.SetStateAction<number[]>>;
 };
 
-export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , setPacketData , setProtocols  }: FileUploadProps) => {
+export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , setPacketData , setProtocols , setTotalDataSize  }: FileUploadProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const isCancelledRef=useRef(false);
@@ -51,6 +52,8 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
   // const [protocols, setProtocols] = useState<string[]>([]);
   // const [packetData, setPacketData] = useState<any[]>([]);
   const controllerRef = useRef<AbortController | null>(null);
+  // const [totalDataSize, setTotalDataSize] = useState<number>(0);
+
   const handleFileChange = (newFiles: File[]) => {
     if(newFiles.length>0){
       setFile(newFiles[0]);
@@ -121,7 +124,8 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
             setIsProcessed(true),2000);
         console.log(result);
         setProtocols(result.protocols);
-        setPacketData(result.packet_data);       
+        setPacketData(result.packet_data);
+        setTotalDataSize(result.total_data_size);  
           setTimeout(() =>
             toast.success("File Processed Successfully"),2000);
           // toast.success("File Processed Successfully")

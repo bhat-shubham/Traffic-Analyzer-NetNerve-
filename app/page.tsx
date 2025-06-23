@@ -24,7 +24,7 @@ export default function Home() {
   const featureRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const testimonialRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const [protocols, setProtocols] = useState<string[]>([]);
-  // Replace 'unknown' with a specific type if you know the structure, e.g. Packet[]
+  const [totalDataSize, setTotalDataSize] = useState<number[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [packetData, setPacketData] = useState<any[]>([]);
 
@@ -112,7 +112,7 @@ export default function Home() {
     <>
     {
       isProcessed ? (
-        <ResultPage file={file} protocols={protocols} packetData={packetData} />
+        <ResultPage file={file} protocols={protocols} packetData={packetData} totalDataSize={totalDataSize} />
       ) : (
     <div
       className="parent bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
@@ -158,7 +158,14 @@ export default function Home() {
         </div>
         <div className="w-1/3 rounded-md ">
           <div className="file-upload opacity-0">
-            <FileUpload setIsProcessed={setIsProcessed} isProcessed={isProcessed} setFile={setFile} setProtocols={setProtocols} setPacketData={setPacketData}/>
+            <FileUpload 
+            setIsProcessed={setIsProcessed} 
+            isProcessed={isProcessed} 
+            setFile={setFile} 
+            setProtocols={setProtocols} 
+            setPacketData={setPacketData}
+            setTotalDataSize={setTotalDataSize}
+            />
           </div>
         </div>
       </div>
