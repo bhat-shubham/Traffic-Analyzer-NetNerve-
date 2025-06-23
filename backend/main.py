@@ -59,11 +59,9 @@ def extract_packet_data(file_path):
 
 
 @app.post("/uploadfile/")
-
 async def create_upload_file(file: UploadFile):
     MAX_FILE_SIZE_MB = 2
     valid_extensions = [".pcap", ".cap"]
-
     if not (file.filename and file.filename.lower().endswith(tuple(valid_extensions))):
         raise HTTPException(status_code=400, detail="Invalid file extension.")
     file_path= f"{uuid.uuid4()}.pcap"
@@ -84,7 +82,9 @@ async def create_upload_file(file: UploadFile):
             layer = layer.payload  # move to next inner layer
     packet_data = extract_packet_data(file_path)
     os.remove(file_path)  # Clean up the temporary file after processing
+    total_data_size = sum(pkt['packet_len'] for pkt in packet_data)
     return {
         "protocols": list(protocols),
         "packet_data": packet_data,
+        "total_data_size": total_data_size
     }

@@ -1,6 +1,7 @@
 // import React, { useState } from "react";
 import { FaFileAlt , FaFolderOpen , FaGetPocket   } from "react-icons/fa";
 import {motion} from "framer-motion";
+import { FaAnglesDown } from "react-icons/fa6";
 type Packet = {
   timestamp: string;
   src_ip: string;
@@ -22,18 +23,18 @@ const ResultPage = ({file , protocols , packetData}: ResultPageProps) => {
     const fileSize = file ? `${(file.size / 1024).toFixed(2)} KB` : "N/A";
     // const [showAllPackets, setShowAllPackets] = useState(false);
     // const displayedPackets = showAllPackets ? packetData : packetData.slice(0, 10);
-    const getTimeRange = () => {
-  if (!packetData || packetData.length === 0) return { start: "", end: "" };
-  const sorted = [...packetData].sort(
-    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
-  );
-  const startTime = new Date(sorted[0].timestamp).toLocaleString();
-  const endTime = new Date(sorted[sorted.length - 1].timestamp).toLocaleString();
+const timestamps = packetData
+  .map(pkt => pkt.timestamp)
+  .filter(Boolean) // remove undefined/null
+  .map(ts => new Date(Number(ts) * 1000)); // convert to Date
 
-  return { start: startTime, end: endTime };
-};
-
-const { start, end } = getTimeRange();
+// if (timestamps.length > 0) {
+//   const minDate = new Date(Math.min(...timestamps.map(ts => ts.getTime())));
+//   const maxDate = new Date(Math.max(...timestamps.map(ts => ts.getTime())));
+// }
+const startTime = Math.min(...timestamps.map(ts => ts.getTime())); 
+const endTime = Math.max(...timestamps.map(ts => ts.getTime())); 
+// const { start, end } = getTimeRange();
 
 
     // const fileType = file?.type ?? "Unknown";
@@ -86,10 +87,10 @@ const { start, end } = getTimeRange();
   </motion.p>
 </div>
 
-<div className="grid grid-cols-1 h-1/3 md:grid-cols-2 gap-6 p-6 max-w mx-auto">
+<div className="py-10 grid grid-cols-1 h-1/3 md:grid-cols-2 gap-6">
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-white/20">
-    <h2 className="text-white text-xl font-semibold mb-2">Total Packets Processed:</h2>
+    <h2 className="text-white text-xl font-semibold mb-2">Total Packets Processed :</h2>
     <p className="bg-white/10 text-white px-2 text-center font-bold py-5 rounded-xl text-xl shadow border border-white/20">
     {packetData.length}
     {/* {packetData.map((packet, index) => (
@@ -107,7 +108,7 @@ const { start, end } = getTimeRange();
 
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
-    <h2 className="text-white text-xl font-semibold mb-2">Unique Protocols Used:</h2>
+    <h2 className="text-white text-xl font-semibold mb-2">Unique Protocols Used :</h2>
     <p className="text-white/80">
     <div className="flex flex-wrap gap-2 mt-2">
   {protocols.map((proto, index) => (
@@ -121,15 +122,29 @@ const { start, end } = getTimeRange();
 
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
-    <h2 className="text-white text-xl font-semibold mb-2">Time Range:</h2>
-    <p className="text-white">
-    {start} → {end}
-</p>
+    <h2 className="text-white text-xl font-semibold mb-2">Time Range :</h2>
+      <div className="gap-5 flex flex-col justify-center items-center">
+    <span className="text-center bg-white/10 text-white px-3 py-1 rounded-xl text-sm shadow border border-white/20">
+      {new Date(startTime).toLocaleString('en-IN', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true,
+      day: '2-digit', month: 'short', year: 'numeric',
+    })}
+    </span>
+    <p className="text-center font-bold">
+      <FaAnglesDown size={20} />
+    </p>
+        <span className="text-center bg-white/10 text-white px-3 py-1 rounded-xl text-sm shadow border border-white/20">
+      {new Date(endTime).toLocaleString('en-IN', {
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true,
+      day: '2-digit', month: 'short', year: 'numeric',
+    })}
+    </span>
+    </div>
   </div>
 
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
-    <h2 className="text-white text-xl font-semibold mb-2">Total Data Size:</h2>
+    <h2 className="text-white text-xl font-semibold mb-2">Total Data Size :</h2>
     <p className="text-white/80">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum dolor explicabo perspiciatis. Culpa inventore dolor commodi esse praesentium doloremque, qui perferendis eum expedita architecto repellendus quisquam doloribus iste natus facilis!</p>
   </div>
 </div>
