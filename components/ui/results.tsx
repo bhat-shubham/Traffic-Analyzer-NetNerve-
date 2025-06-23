@@ -1,12 +1,41 @@
 // import React, { useState } from "react";
 import { FaFileAlt , FaFolderOpen , FaGetPocket   } from "react-icons/fa";
 import {motion} from "framer-motion";
+type Packet = {
+  timestamp: string;
+  src_ip: string;
+  src_port: number;
+  dst_ip: string;
+  dst_port: number;
+  protocol: string;
+  packet_len: number;
+  flags: string;
+};
+
 type ResultPageProps = {
   file: File | null;
+  protocols: string[];
+  packetData: Packet[];
 };
-const ResultPage = ({file}: ResultPageProps) => {
+const ResultPage = ({file , protocols , packetData}: ResultPageProps) => {
     const fileName = file?.name ?? "No file uploaded yet";
     const fileSize = file ? `${(file.size / 1024).toFixed(2)} KB` : "N/A";
+    // const [showAllPackets, setShowAllPackets] = useState(false);
+    // const displayedPackets = showAllPackets ? packetData : packetData.slice(0, 10);
+    const getTimeRange = () => {
+  if (!packetData || packetData.length === 0) return { start: "", end: "" };
+  const sorted = [...packetData].sort(
+    (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+  );
+  const startTime = new Date(sorted[0].timestamp).toLocaleString();
+  const endTime = new Date(sorted[sorted.length - 1].timestamp).toLocaleString();
+
+  return { start: startTime, end: endTime };
+};
+
+const { start, end } = getTimeRange();
+
+
     // const fileType = file?.type ?? "Unknown";
   return (
     <motion.div
@@ -53,27 +82,49 @@ const ResultPage = ({file}: ResultPageProps) => {
     animate={{ opacity: 1 }}
     transition={{ duration: 1,delay:1, ease: "easeInOut" }}
     >
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio ex impedit soluta, nostrum expedita amet quisquam accusantium, pariatur, quaerat voluptatum fuga harum sed accusamus molestias et numquam aut tenetur! Laborum?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, dicta. Incidunt alias sed dicta consectetur porro minima necessitatibus vero reiciendis laudantium quae quod labore nisi veritatis, explicabo quam quidem sunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus possimus voluptatem perspiciatis? Inventore rem eveniet nesciunt nostrum dicta harum a similique perferendis commodi iste autem, esse id ratione illo est.Fugit corporis qui omnis cum ullam itaque mollitia voluptate, suscipit eveniet eius neque. At quisquam quos doloremque sint ea qui ratione autem! Pariatur necessitatibus esse vitae saepe id aliquid perspiciatis?Nostrum quia itaque repellendus! Eos itaque beatae delectus commodi esse, amet exercitationem necessitatibus! Est dicta autem ullam natus facilis soluta eveniet tempore, exercitationem aspernatur sunt reiciendis cum ex adipisci velit.Libero, beatae a! Iure commodi quam deleniti provident facere eligendi repellat fugiat, illo voluptatem excepturi aperiam est dolore nemo qui adipisci. Aliquid impedit tempore ducimus optio laboriosam quo aut in.Dolore voluptas accusamus veniam minima mollitia, architecto nulla earum enim aspernatur qui corrupti cumque, beatae soluta accusantium molestiae rem quia inventore dolores cum nihil. Rerum debitis cum pariatur possimus tempore?Nemo explicabo atque blanditiis nesciunt ducimus facere debitis quos! Eligendi, molestiae deleniti illum soluta et debitis consequatur ipsam temporibus nisi expedita esse quaerat cupiditate culpa id. Quam cum necessitatibus corrupti?Sunt dicta harum cumque debitis vel tempore neque aliquam, dolorem doloribus suscipit officia, quos, architecto ut. Quaerat ipsa officia excepturi iusto quisquam totam expedita, vero magnam. Sed minus similique autem.Dolore incidunt, neque, pariatur alias eligendi quod quidem temporibus, rem ex qui et. Dolorem harum distinctio ad, et exercitationem sed itaque sapiente ducimus quos laudantium explicabo amet dolor quisquam suscipit?Recusandae optio soluta reprehenderit quod, accusamus at architecto nobis dolorem consequatur, veritatis ducimus voluptatum dolor temporibus porro mollitia nemo. Aliquam officia dolorum atque nam maxime blanditiis minima provident deserunt ex.Provident ea dolorem delectus cumque consequatur reprehenderit? Quibusdam impedit quos facere eos repudiandae fugit laudantium enim, modi dolor eius perferendis vel sed optio omnis, consequatur veritatis. Quisquam ab excepturi amet!
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio ex impedit soluta, nostrum expedita amet quisquam accusantium, pariatur, quaerat voluptatum fuga harum sed accusamus molestias et numquam aut tenetur! Laborum?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, dicta. Incidunt alias sed dicta consectetur porro minima necessitatibus vero reiciendis laudantium quae quod labore nisi veritatis, explicabo quam quidem sunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus possimus voluptatem perspiciatis? Inventore rem eveniet nesciunt nostrum dicta harum a similique perferendis commodi iste autem, esse id ratione illo est.Fugit corporis qui omnis cum ullam itaque mollitia voluptate, suscipit eveniet eius neque. At quisquam quos doloremque sint ea qui ratione autem! Pariatur necessitatibus esse vitae saepe id aliquid perspiciatis?Nostrum quia itaque repellendus! Eos itaque beatae delectus commodi esse, amet exercitationem necessitatibus! Est dicta autem ullam natus facilis soluta eveniet tempore, exercitationem aspernatur sunt reiciendis cum ex adipisci velit.Libero, beatae a! Iure commodi quam deleniti provident facere eligendi repellat fugiat, illo voluptatem excepturi aperiam est dolore nemo qui adipisci. Aliquid impedit tempore ducimus optio laboriosam quo aut in.Dolore voluptas accusamus veniam minima mollitia, architecto nulla earum enim aspernatur qui corrupti cumque, beatae soluta accusantium molestiae rem quia inventore dolores cum nihil. Rerum debitis cum pariatur possimus tempore?Nemo explicabo atque blanditiis nesciunt ducimus facere debitis quos! Eligendi, molestiae deleniti illum soluta et debitis consequatur ipsam temporibus nisi expedita esse quaerat cupiditate culpa id. Quam cum necessitatibus corrupti?Sunt dicta harum cumque debitis vel tempore neque aliquam, dolorem doloribus suscipit officia, quos, architecto ut
   </motion.p>
 </div>
 
 <div className="grid grid-cols-1 h-1/3 md:grid-cols-2 gap-6 p-6 max-w mx-auto">
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
-    <h2 className="text-white text-xl font-semibold mb-2">Total Packets:</h2>
-    <p className="text-white/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum voluptatum fugiat veniam excepturi vitae ducimus, minus aspernatur mollitia ad consectetur nobis aut nam ipsam cumque! Vitae nisi fugit unde sit.</p>
+    <h2 className="text-white text-xl font-semibold mb-2">Total Packets Processed:</h2>
+    <p className="bg-white/10 text-white px-2 text-center font-bold py-5 rounded-4xl text-xl shadow border border-white/20">
+    {packetData.length}
+    {/* {packetData.map((packet, index) => (
+  <div key={index} className="p-4 mb-4 bg-white/10 text-white rounded-lg">
+    <p><strong>Timestamp:</strong> {packet.timestamp}</p>
+    <p><strong>Source:</strong> {packet.src_ip}:{packet.src_port}</p>
+    <p><strong>Destination:</strong> {packet.dst_ip}:{packet.dst_port}</p>
+    <p><strong>Protocol:</strong> {packet.protocol}</p>
+    <p><strong>Packet Length:</strong> {packet.packet_len}</p>
+    <p><strong>Flags:</strong> {packet.flags}</p>
+  </div>
+))} */}
+</p>
   </div>
 
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
     <h2 className="text-white text-xl font-semibold mb-2">Unique Protocols Used:</h2>
-    <p className="text-white/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis, quasi. Velit eos porro voluptate in earum ab, deleniti quo tenetur veniam. Assumenda voluptatum quo impedit. Sit aliquam corporis nisi unde?</p>
+    <p className="text-white/80">
+    <div className="flex flex-wrap gap-2 mt-2">
+  {protocols.map((proto, index) => (
+    <span key={index} className="bg-white/10 text-white px-3 py-1 rounded-full text-sm shadow border border-white/20">
+      {proto}
+    </span>
+  ))}
+</div>
+</p>
   </div>
 
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
     <h2 className="text-white text-xl font-semibold mb-2">Time Range:</h2>
-    <p className="text-white/80">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore ab aperiam unde cum, explicabo mollitia doloremque obcaecati molestiae minima a expedita ad voluptatum aut, iusto accusantium adipisci illum consectetur possimus.</p>
+    <p className="text-white">
+    {start} → {end}
+</p>
   </div>
 
 

@@ -4,7 +4,8 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from scapy.all import rdpcap
 from scapy.layers.inet import IP, TCP, UDP, ICMP
 from scapy.layers.l2 import ARP
-import uuid,os
+import uuid,os,datetime
+timestamp = datetime.datetime.now().isoformat()
 app = FastAPI()
 
 app.add_middleware(

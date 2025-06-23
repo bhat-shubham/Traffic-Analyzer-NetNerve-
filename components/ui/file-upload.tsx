@@ -34,9 +34,11 @@ type FileUploadProps = {
   setIsProcessed: React.Dispatch<React.SetStateAction<boolean>>;
   isProcessed?: boolean;
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
+  setProtocols: React.Dispatch<React.SetStateAction<string[]>>;
+  setPacketData: React.Dispatch<React.SetStateAction<any[]>>;
 };
 
-export const FileUpload = ({ onChange, setIsProcessed, isProcessed,setFile }: FileUploadProps) => {
+export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , setPacketData , setProtocols  }: FileUploadProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const isCancelledRef=useRef(false);
@@ -45,6 +47,8 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed,setFile }: Fi
   const fileInputRef = useRef<HTMLInputElement>(null);
   const maxSize = 2 * 1024 * 1024;
   const [showComplete, setShowComplete] = useState(false);
+  // const [protocols, setProtocols] = useState<string[]>([]);
+  // const [packetData, setPacketData] = useState<any[]>([]);
   const controllerRef = useRef<AbortController | null>(null);
   const handleFileChange = (newFiles: File[]) => {
     if(newFiles.length>0){
@@ -111,14 +115,20 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed,setFile }: Fi
           body: formData,
         });
         if (response.ok){
+          const result = await response.json();
           setTimeout(() =>
             setIsProcessed(true),2000);
+        console.log(result);
+        setProtocols(result.protocols);
+        setPacketData(result.packet_data);       
           setTimeout(() =>
             toast.success("File Processed Successfully"),2000);
           // toast.success("File Processed Successfully")
         }
-        const result= await response.json();
-        console.log(result);
+        // const result= await response.json();
+        // console.log(result);
+        // console.log(protocols)
+        // console.log(packetData)
         
 
       }
