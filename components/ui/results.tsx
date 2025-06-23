@@ -1,15 +1,13 @@
 // import React, { useState } from "react";
 import { FaFileAlt , FaFolderOpen , FaGetPocket   } from "react-icons/fa";
 import {motion} from "framer-motion";
-
-const ResultPage = () => {
-//   const [files, setFiles] = useState<File[]>([]);
-//   const uploadedFile = files[0];
-//   if (uploadedFile) {
-//   const fileName = uploadedFile.name;
-//   const fileSize = (uploadedFile.size / 1024).toFixed(2) + ' KB';
-//   const fileType = uploadedFile.type;
-// }
+type ResultPageProps = {
+  file: File | null;
+};
+const ResultPage = ({file}: ResultPageProps) => {
+    const fileName = file?.name ?? "No file uploaded yet";
+    const fileSize = file ? `${(file.size / 1024).toFixed(2)} KB` : "N/A";
+    // const fileType = file?.type ?? "Unknown";
   return (
     <motion.div
       className="font-[Poppins] px-10 py-10 relative"
@@ -36,15 +34,15 @@ const ResultPage = () => {
       <div className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-xl border border-white/20 p-6 rounded-2xl text-2xl font-bold space-y-4 mt-10">
         <p>
           <FaFileAlt className="inline-block mr-2 text-xl" />
-          Uploaded File : 
+          Uploaded File : | {fileName} |
           </p>
         <p>
           <FaFolderOpen className="inline-block mr-2 text-xl" />
-          File Size :
+          File Size : | {fileSize} |
           </p>
         <p>
           <FaGetPocket className="inline-block mr-2 text-xl" />
-          Current Status :
+          Current Status :  | Processed |
           </p>
       </div>
       <div className="mt-10 p-6 h-[60vh] rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-[0_0_25px_rgba(59,130,246,0.6)] border-1 border-blue-400 overflow-y-auto">

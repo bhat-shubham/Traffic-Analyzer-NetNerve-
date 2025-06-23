@@ -15,6 +15,7 @@ import {AnimatedTestimonials,testimonials} from "../components/ui/animated-testi
 gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 
 export default function Home() {
+  const [file,setFile] = useState<File | null>(null);
   const headline = useRef(null);
   const working = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
   const para = useRef(null);
@@ -107,7 +108,7 @@ export default function Home() {
     <>
     {
       isProcessed ? (
-        <ResultPage />
+        <ResultPage file={file} />
       ) : (
     <div
       className="parent bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
@@ -153,7 +154,7 @@ export default function Home() {
         </div>
         <div className="w-1/3 rounded-md ">
           <div className="file-upload opacity-0">
-            <FileUpload setIsProcessed={setIsProcessed} isProcessed={isProcessed}/>
+            <FileUpload setIsProcessed={setIsProcessed} isProcessed={isProcessed} setFile={setFile}/>
           </div>
         </div>
       </div>

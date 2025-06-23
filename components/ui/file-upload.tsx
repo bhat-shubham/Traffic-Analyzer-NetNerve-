@@ -33,9 +33,10 @@ type FileUploadProps = {
   onChange?: (files: File[]) => void;
   setIsProcessed: React.Dispatch<React.SetStateAction<boolean>>;
   isProcessed?: boolean;
+  setFile: React.Dispatch<React.SetStateAction<File | null>>;
 };
 
-export const FileUpload = ({ onChange, setIsProcessed, isProcessed }: FileUploadProps) => {
+export const FileUpload = ({ onChange, setIsProcessed, isProcessed,setFile }: FileUploadProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const [progress, setProgress] = useState<number>(0);
   const isCancelledRef=useRef(false);
@@ -46,6 +47,9 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed }: FileUpload
   const [showComplete, setShowComplete] = useState(false);
   const controllerRef = useRef<AbortController | null>(null);
   const handleFileChange = (newFiles: File[]) => {
+    if(newFiles.length>0){
+      setFile(newFiles[0]);
+    }
     setFiles((prevFiles) => [...prevFiles, ...newFiles]);
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     onChange && onChange(newFiles);
@@ -249,7 +253,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed }: FileUpload
                             ) : (
                             <motion.p
                             key="processing"
-                            // initial={{ opacity: 0 }}
+                            // initial={{ y:-10 }}
                             animate={{color: ["#ffffff", "#A1A1A1", "#ffffff"],}}
                             transition={{ duration: 2, ease:"easeInOut" ,repeat:Infinity }}
                             className="text-white">
