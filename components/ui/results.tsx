@@ -88,9 +88,9 @@ const { start, end } = getTimeRange();
 
 <div className="grid grid-cols-1 h-1/3 md:grid-cols-2 gap-6 p-6 max-w mx-auto">
 
-  <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
+  <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-white/20">
     <h2 className="text-white text-xl font-semibold mb-2">Total Packets Processed:</h2>
-    <p className="bg-white/10 text-white px-2 text-center font-bold py-5 rounded-4xl text-xl shadow border border-white/20">
+    <p className="bg-white/10 text-white px-2 text-center font-bold py-5 rounded-xl text-xl shadow border border-white/20">
     {packetData.length}
     {/* {packetData.map((packet, index) => (
   <div key={index} className="p-4 mb-4 bg-white/10 text-white rounded-lg">

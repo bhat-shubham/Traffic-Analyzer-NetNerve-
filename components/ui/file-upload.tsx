@@ -35,6 +35,7 @@ type FileUploadProps = {
   isProcessed?: boolean;
   setFile: React.Dispatch<React.SetStateAction<File | null>>;
   setProtocols: React.Dispatch<React.SetStateAction<string[]>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setPacketData: React.Dispatch<React.SetStateAction<any[]>>;
 };
 
