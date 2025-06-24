@@ -96,7 +96,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
       formData.append("file", files[0]);
       try {
         setIsLoading(true);
-        await axios.post("http://localhost:8000/uploadfile/", formData, {
+        await axios.post("https://netnerve.onrender.com/uploadfile/", formData, {
           signal: controller.signal,
           onUploadProgress: (axiosProgressEvent) => {
             if (typeof axiosProgressEvent.total === "number" && axiosProgressEvent.total > 0) {
@@ -118,11 +118,11 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
   }
       try{
         setIsLoading(true);
-        const response = await fetch("http://localhost:8000/uploadfile/",{
+        const response = await fetch("https://netnerve.onrender.com/uploadfile/",{
           method:"POST",
           body: formData,
         });
-        const uploadRes = await fetch("http://localhost:8000/uploadfile/", {
+        const uploadRes = await fetch("https://netnerve.onrender.com/uploadfile/", {
           method: "POST",
           body: formData,
         });
@@ -132,7 +132,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
         const packet_data = uploadData.packet_data;
         const total_data_size = uploadData.total_data_size;
 
-        const summaryRes = await fetch("http://localhost:8000/generate-summary/", {
+        const summaryRes = await fetch("https://netnerve.onrender.com/generate-summary/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
