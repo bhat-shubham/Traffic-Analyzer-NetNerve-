@@ -92,7 +92,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
       formData.append("file", files[0]);
       try {
         setIsLoading(true);
-        await axios.post("https://netnerve.onrender.com/uploadfile/", formData, {
+        await axios.post("http://localhost:8000/uploadfile/", formData, {
           signal: controller.signal,
           onUploadProgress: (axiosProgressEvent) => {
             if (typeof axiosProgressEvent.total === "number" && axiosProgressEvent.total > 0) {
@@ -114,10 +114,31 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
   }
       try{
         setIsLoading(true);
-        const response = await fetch("https://netnerve.onrender.com/uploadfile/",{
+        const response = await fetch("http://localhost:8000/uploadfile/",{
           method:"POST",
           body: formData,
         });
+        const uploadRes = await fetch("http://localhost:8000/uploadfile/", {
+          method: "POST",
+          body: formData,
+        });
+        const uploadData = await uploadRes.json();
+        const protocols = uploadData.protocols;
+        const packet_data = uploadData.packet_data;
+        const total_data_size = uploadData.total_data_size;
+
+        const summaryRes = await fetch("http://localhost:8000/generate-summary/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            protocols,
+            packet_data,
+            total_data_size,
+        }),
+      });
+    const summaryData = await summaryRes.json();
+    console.log("AI Summary:", summaryData.summary);
+
         if (response.ok){
           const result = await response.json();
           setTimeout(() =>

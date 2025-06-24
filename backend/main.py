@@ -10,6 +10,8 @@ load_dotenv()
 from groq import Groq
 timestamp = datetime.datetime.now().isoformat()
 app = FastAPI()
+from fastapi import Body
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -91,18 +93,51 @@ async def create_upload_file(file: UploadFile):
         "packet_data": packet_data,
         "total_data_size": total_data_size
     }
-client = Groq(
-    api_key=os.environ.get("GROQ_API_KEY"),
-)
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-chat_completion = client.chat.completions.create(
-    messages=[
-        {
-            "role": "user",
-            "content": "Explain the importance of fast language models",
-        }
-    ],
-    model="llama-3.3-70b-versatile",
-)
 
-# print(chat_completion.choices[0].message.content)
+system_prompt = os.environ.get("SYSTEM_PROMPT") or "You are a cybersecurity expert."
+def build_summary_prompt(protocols, packet_data, total_data_size):
+    lines = []
+    lines.append(f"Protocols used: {', '.join(protocols)}.")
+    lines.append(f"Total packets captured: {len(packet_data)}.")
+    lines.append(f"Total data transferred: {total_data_size} bytes.")
+
+    if packet_data:
+        sample = packet_data[:3]  # First 3 packets
+        for i, pkt in enumerate(sample, 1):
+            lines.append(
+                f"Sample {i}: {pkt.get('src_ip')}:{pkt.get('src_port')} → "
+                f"{pkt.get('dst_ip')}:{pkt.get('dst_port')} | {pkt.get('protocol')} "
+                f"| Size: {pkt.get('packet_len')} bytes | Flags: {pkt.get('flags')}."
+            )
+
+    lines.append("Based on this, analyze the data for potential threats, patterns, or observations.")
+    return "\n".join(lines)
+
+
+async def generate_ai_summary(protocols, packet_data, total_data_size):
+    user_prompt = build_summary_prompt(protocols, packet_data, total_data_size)
+
+    chat = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",  # or "llama-3.3-70b-versatile" if that's what you're using
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+    )
+
+    summary_text=chat.choices[0].message.content
+    return{summary_text}
+
+@app.post("/generate-summary/")
+async def generate_summary(
+    protocols: list[str] = Body(...),
+    packet_data: list[dict] = Body(...),
+    total_data_size: int = Body(...)
+):
+    try:
+        summary =await generate_ai_summary(protocols, packet_data, total_data_size)
+        return {"summary": summary}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"AI Summary failed")
