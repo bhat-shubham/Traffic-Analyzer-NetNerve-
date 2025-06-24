@@ -82,7 +82,7 @@ async def create_upload_file(file: UploadFile):
             layer = layer.payload  # move to next inner layer
     packet_data = extract_packet_data(file_path)
     os.remove(file_path)  # Clean up the temporary file after processing
-    total_data_size = sum(pkt['packet_len'] for pkt in packet_data)
+    total_data_size = sum(pkt.get('packet_len', 0) for pkt in packet_data)
     return {
         "protocols": list(protocols),
         "packet_data": packet_data,
