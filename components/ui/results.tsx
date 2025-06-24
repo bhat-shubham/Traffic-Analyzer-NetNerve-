@@ -78,7 +78,7 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
           Current Status :  | Processed |
           </p>
       </div>
-      <div className="mt-10 p-6 h-[60vh] rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-[0_0_25px_rgba(59,130,246,0.6)] border-1 border-blue-400 overflow-y-auto">
+      <div className="mt-10 p-6 h-[70vh] rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-[0_0_25px_rgba(59,130,246,0.6)] border-1 border-blue-400 overflow-y-auto">
       <h1 className="text-[#A1FFCE] text-2xl font-bold mb-4">AI Summary and Findings:</h1>
     <motion.p
      className="text-white/90 text-base leading-relaxed"
@@ -91,8 +91,12 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
       source={summary}
       style={{
       backgroundColor: "transparent",
-      color: "#fff", // or "inherit"
+      font:"bold",
+      // color: "#fff", // or "inherit"
       // padding: "1rem",
+      // height:80
+      fontFamily:"Poppins",
+      fontWeight:900
   }}
       />
   </motion.p>

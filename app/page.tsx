@@ -170,6 +170,7 @@ export default function Home() {
             setSummary={setSummary} 
             // setUploadData={setUploadData}
             />
+            <p className="font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">It May Take a Longer Time To Process Due To Server Restraints :)</p>
           </div>
         </div>
       </div>

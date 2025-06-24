@@ -104,7 +104,7 @@ def build_summary_prompt(protocols, packet_data, total_data_size):
     lines.append(f"Total data transferred: {total_data_size} bytes.")
 
     if packet_data:
-        sample = packet_data[:3]  # First 3 packets
+        sample = packet_data[:5]  # First 3 packets
         for i, pkt in enumerate(sample, 1):
             lines.append(
                 f"Sample {i}: {pkt.get('src_ip')}:{pkt.get('src_port')} → "
