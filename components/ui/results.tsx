@@ -2,6 +2,9 @@
 import { FaFileAlt , FaFolderOpen , FaGetPocket   } from "react-icons/fa";
 import {motion} from "framer-motion";
 import { FaAnglesDown } from "react-icons/fa6";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
+
 type Packet = {
   timestamp: string;
   src_ip: string;
@@ -17,10 +20,14 @@ type ResultPageProps = {
   file: File | null;
   protocols: string[];
   packetData: Packet[];
+  summary: string;
+  // uploadData: unknown;
   totalDataSize : number[];
+
+
   
 };
-const ResultPage = ({file , protocols , packetData, totalDataSize}: ResultPageProps) => {
+const ResultPage = ({file , protocols , packetData, totalDataSize , summary,}: ResultPageProps) => {
     const fileName = file?.name ?? "No file uploaded yet";
     const fileSize = file ? `${(file.size / 1024).toFixed(2)} KB` : "N/A";
 
@@ -78,7 +85,10 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
     animate={{ opacity: 1 }}
     transition={{ duration: 1,delay:1, ease: "easeInOut" }}
     >
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Distinctio ex impedit soluta, nostrum expedita amet quisquam accusantium, pariatur, quaerat voluptatum fuga harum sed accusamus molestias et numquam aut tenetur! Laborum?Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate, dicta. Incidunt alias sed dicta consectetur porro minima necessitatibus vero reiciendis laudantium quae quod labore nisi veritatis, explicabo quam quidem sunt. Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus possimus voluptatem perspiciatis? Inventore rem eveniet nesciunt nostrum dicta harum a similique perferendis commodi iste autem, esse id ratione illo est.Fugit corporis qui omnis cum ullam itaque mollitia voluptate, suscipit eveniet eius neque. At quisquam quos doloremque sint ea qui ratione autem! Pariatur necessitatibus esse vitae saepe id aliquid perspiciatis?Nostrum quia itaque repellendus! Eos itaque beatae delectus commodi esse, amet exercitationem necessitatibus! Est dicta autem ullam natus facilis soluta eveniet tempore, exercitationem aspernatur sunt reiciendis cum ex adipisci velit.Libero, beatae a! Iure commodi quam deleniti provident facere eligendi repellat fugiat, illo voluptatem excepturi aperiam est dolore nemo qui adipisci. Aliquid impedit tempore ducimus optio laboriosam quo aut in.Dolore voluptas accusamus veniam minima mollitia, architecto nulla earum enim aspernatur qui corrupti cumque, beatae soluta accusantium molestiae rem quia inventore dolores cum nihil. Rerum debitis cum pariatur possimus tempore?Nemo explicabo atque blanditiis nesciunt ducimus facere debitis quos! Eligendi, molestiae deleniti illum soluta et debitis consequatur ipsam temporibus nisi expedita esse quaerat cupiditate culpa id. Quam cum necessitatibus corrupti?Sunt dicta harum cumque debitis vel tempore neque aliquam, dolorem doloribus suscipit officia, quos, architecto ut
+      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+  {Array.isArray(summary) ? summary[0] : summary}
+</ReactMarkdown>
+
   </motion.p>
 </div>
 
@@ -102,18 +112,21 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
   </div>
 
 
-  <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
-    <h2 className="text-white text-xl font-semibold mb-2">Unique Protocols Used :</h2>
-    <p className="text-white/80">
-    <div className="flex flex-wrap gap-2 mt-2">
-  {protocols.map((proto, index) => (
-    <span key={index} className="bg-white/10 text-white px-3 py-1 rounded-full text-sm shadow border border-white/20">
-      {proto}
-    </span>
-  ))}
-</div>
-</p>
+<div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">
+  <h2 className="text-white text-xl font-semibold mb-2">Unique Protocols Used :</h2>
+  
+  <div className="flex flex-wrap gap-3">
+    {protocols.map((proto, index) => (
+      <span 
+        key={index} 
+        className="bg-white/10 text-white px-3 py-1 rounded-full text-sm shadow border border-white/20"
+      >
+        {proto}
+      </span>
+    ))}
   </div>
+</div>
+
 
 
   <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-white/20">

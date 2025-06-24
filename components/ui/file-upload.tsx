@@ -38,10 +38,14 @@ type FileUploadProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setPacketData: React.Dispatch<React.SetStateAction<any[]>>;
   setTotalDataSize :React.Dispatch<React.SetStateAction<number[]>>;
+  // setSummary:React.Dispatch<React.SetStateAction<string[]>>;
+  setSummary: (summary: string) => void;
+  // setUploadData: (data: unknown) => void;
 };
 
-export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , setPacketData , setProtocols , setTotalDataSize  }: FileUploadProps) => {
+export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , setPacketData , setProtocols , setTotalDataSize ,setSummary}: FileUploadProps) => {
   const [files, setFiles] = useState<File[]>([]);
+  // const [summary, setSummary] = useState(null);
   const [progress, setProgress] = useState<number>(0);
   const isCancelledRef=useRef(false);
   // const [isProcessed, setIsProcessed] = useState(false);
@@ -123,6 +127,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
           body: formData,
         });
         const uploadData = await uploadRes.json();
+        // setUploadData(uploadData);
         const protocols = uploadData.protocols;
         const packet_data = uploadData.packet_data;
         const total_data_size = uploadData.total_data_size;
@@ -137,7 +142,8 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
         }),
       });
     const summaryData = await summaryRes.json();
-    console.log("AI Summary:", summaryData.summary);
+    const summary = summaryData.summary[0];
+    setSummary(summary);
 
         if (response.ok){
           const result = await response.json();

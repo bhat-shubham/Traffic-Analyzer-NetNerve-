@@ -27,6 +27,8 @@ export default function Home() {
   const [totalDataSize, setTotalDataSize] = useState<number[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [packetData, setPacketData] = useState<any[]>([]);
+  const [summary, setSummary] = useState<string | null>(null);
+  // const [uploadData, setUploadData] = useState<any>(null);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -112,7 +114,7 @@ export default function Home() {
     <>
     {
       isProcessed ? (
-        <ResultPage file={file} protocols={protocols} packetData={packetData} totalDataSize={totalDataSize} />
+        <ResultPage file={file} protocols={protocols} packetData={packetData} totalDataSize={totalDataSize} summary={summary ?? ""}/>
       ) : (
     <div
       className="parent bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
@@ -165,6 +167,8 @@ export default function Home() {
             setProtocols={setProtocols} 
             setPacketData={setPacketData}
             setTotalDataSize={setTotalDataSize}
+            setSummary={setSummary} 
+            // setUploadData={setUploadData}
             />
           </div>
         </div>
