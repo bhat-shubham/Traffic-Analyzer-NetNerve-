@@ -2,8 +2,9 @@
 import { FaFileAlt , FaFolderOpen , FaGetPocket   } from "react-icons/fa";
 import {motion} from "framer-motion";
 import { FaAnglesDown } from "react-icons/fa6";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm';
+// import ReactMarkdown from "react-markdown";
+// import remarkGfm from "remark-gfm";
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 type Packet = {
   timestamp: string;
@@ -85,10 +86,15 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
     animate={{ opacity: 1 }}
     transition={{ duration: 1,delay:1, ease: "easeInOut" }}
     >
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>
-  {Array.isArray(summary) ? summary[0] : summary}
-</ReactMarkdown>
-
+      
+      <MarkdownPreview 
+      source={summary}
+      style={{
+      backgroundColor: "transparent",
+      color: "#fff", // or "inherit"
+      // padding: "1rem",
+  }}
+      />
   </motion.p>
 </div>
 
