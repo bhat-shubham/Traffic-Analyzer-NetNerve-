@@ -5,6 +5,9 @@ from scapy.all import rdpcap
 from scapy.layers.inet import IP, TCP, UDP, ICMP
 from scapy.layers.l2 import ARP
 import uuid,os,datetime
+from dotenv import load_dotenv
+load_dotenv()
+from groq import Groq
 timestamp = datetime.datetime.now().isoformat()
 app = FastAPI()
 
@@ -88,3 +91,18 @@ async def create_upload_file(file: UploadFile):
         "packet_data": packet_data,
         "total_data_size": total_data_size
     }
+client = Groq(
+    api_key=os.environ.get("GROQ_API_KEY"),
+)
+
+chat_completion = client.chat.completions.create(
+    messages=[
+        {
+            "role": "user",
+            "content": "Explain the importance of fast language models",
+        }
+    ],
+    model="llama-3.3-70b-versatile",
+)
+
+# print(chat_completion.choices[0].message.content)
