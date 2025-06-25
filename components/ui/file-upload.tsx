@@ -79,98 +79,95 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
     setIsLoading(false);
     setFiles([]);
     setIsProcessed(false);
-    // console.log(progress);
     controllerRef.current?.abort();
     toast.error("Operation Cancelled By User")
 
   };
   let controller = new AbortController();
-  const handleSubmit = async () =>
-    {
-      controller = new AbortController();
-      isCancelledRef.current=false
-      if(files.length===0){
-        toast.error("Please Upload A File Before Submitting")
-      }
-      const formData = new FormData();
-      formData.append("file", files[0]);
-      try {
-        setIsLoading(true);
-        await axios.post("https://netnerve.onrender.com/uploadfile/", formData, {
-          signal: controller.signal,
-          onUploadProgress: (axiosProgressEvent) => {
-            if (typeof axiosProgressEvent.total === "number" && axiosProgressEvent.total > 0) {
-              const percent = Math.round((axiosProgressEvent.loaded * 100) / axiosProgressEvent.total);
-              setProgress(percent);
-                  if(percent===100 && !isCancelledRef.current){
-                    setShowComplete(true);
-                    toast.success("File Uploaded Successfully");
-                    setTimeout(() =>
-                      setShowComplete(false),1500);
-            }
-          }
-      },
-    });
-  } catch {
-    toast.error("Upload failed");
-  } finally {
-    setIsLoading(false);
-  }
-      try{
-        setIsLoading(true);
-        // const response = await fetch("http://localhost:8000/uploadfile/",{
-        const response = await fetch("https://netnerve.onrender.com/uploadfile/",{
-          method:"POST",
-          body: formData,
-        });
-        // const uploadRes = await fetch("http://localhost:8000/uploadfile/", {
-        const uploadRes = await fetch("https://netnerve.onrender.com/uploadfile/", {
-          method: "POST",
-          body: formData,
-        });
-        const uploadData = await uploadRes.json();
-        // setUploadData(uploadData);
-        const protocols = uploadData.protocols;
-        const packet_data = uploadData.packet_data;
-        const total_data_size = uploadData.total_data_size;
-
-        // const summaryRes = await fetch("http://localhost:8000/generate-summary/", {
-          const summaryRes = await fetch("https://netnerve.onrender.com/generate-summary/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            protocols,
-            packet_data,
-            total_data_size,
+  const generateSummary = async (protocols: string[], packet_data: any[], total_data_size: number[]) => {
+    try {
+      const summaryRes = await fetch("https://netnerve-rlqu4.kinsta.app/generate-summary/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          protocols,
+          packet_data,
+          total_data_size,
         }),
       });
-    const summaryData = await summaryRes.json();
-    const summary = summaryData.summary[0];
-    setSummary(summary);
 
-        if (response.ok){
-          const result = await response.json();
-          setTimeout(() =>
-            setIsProcessed(true),2000);
-        console.log(result);
-        setProtocols(result.protocols);
-        setPacketData(result.packet_data);
-        setTotalDataSize(result.total_data_size);  
-          setTimeout(() =>
-            toast.success("File Processed Successfully"),2000);
-          // toast.success("File Processed Successfully")
-        }
-        // const result= await response.json();
-        // console.log(result);
-        // console.log(protocols)
-        // console.log(packetData)
-        
+      if (!summaryRes.ok) {
+        throw new Error("Failed to generate summary");
+      }
 
+      const summaryData = await summaryRes.json();
+      return summaryData.summary[0];
+    } catch (error) {
+      console.error("Error generating summary:", error);
+      throw error;
+    }
+  };
+
+  const handleSubmit = async () => {
+    if (files.length === 0) {
+      toast.error("Please Upload A File Before Submitting");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    
+    controller = new AbortController();
+    isCancelledRef.current = false;
+    setIsLoading(true);
+
+    try {
+      // axios request that handles both upload progress and processing
+      const response = await axios({
+        method: 'post',
+        url: 'https://netnerve-rlqu4.kinsta.app/uploadfile/',
+        data: formData,
+        signal: controller.signal,
+        onUploadProgress: (axiosProgressEvent) => {
+          if (typeof axiosProgressEvent.total === "number" && axiosProgressEvent.total > 0) {
+            const percent = Math.round((axiosProgressEvent.loaded * 100) / axiosProgressEvent.total);
+            setProgress(percent);
+            if (percent === 100 && !isCancelledRef.current) {
+              setShowComplete(true);
+              toast.success("File Uploaded Successfully");
+              setTimeout(() => setShowComplete(false), 1500);
+            }
+          }
+        },
+      });
+
+      const { protocols, packet_data, total_data_size } = response.data;
+
+      setProtocols(protocols);
+      setPacketData(packet_data);
+      setTotalDataSize(total_data_size);
+      
+      const summaryPromise = generateSummary(protocols, packet_data, total_data_size);
+      
+      const [summary] = await Promise.all([
+        summaryPromise,
+      ]);
+      
+      setSummary(summary);
+      setIsProcessed(true);
+      toast.success("File Processed Successfully");
+      
+    } catch (error) {
+      console.error("Error during file processing:", error);
+      if (!isCancelledRef.current) {
+        toast.error(error instanceof Error ? error.message : "An error occurred");
       }
-      catch(err){
-        console.log(err);
+    } finally {
+      if (!isCancelledRef.current) {
+        setIsLoading(false);
       }
-}      
+    }
+  };
 
   const { getRootProps, isDragActive } = useDropzone({
     multiple: false,
