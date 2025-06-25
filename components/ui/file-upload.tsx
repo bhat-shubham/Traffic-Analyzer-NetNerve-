@@ -84,6 +84,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
 
   };
   let controller = new AbortController();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const generateSummary = async (protocols: string[], packet_data: any[], total_data_size: number[]) => {
     try {
       const summaryRes = await fetch("https://netnerve-rlqu4.kinsta.app/generate-summary/", {
