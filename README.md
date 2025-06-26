@@ -1,4 +1,4 @@
-# NetNerve: Traffic Analyzer
+# NetNerve: AI Powered Traffic Analyzer
 
 [![NetNerve Live](https://img.shields.io/badge/Live-Demo-brightgreen?style=flat-square&logo=vercel)](https://netnerve.vercel.app/)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -18,12 +18,22 @@
 - **Modern Web Stack:** Built with [Next.js](https://nextjs.org/) and TypeScript for performance and reliability.
 - **Open Source:** Freely available under the MIT License.
 
+## Tech Stack 
+
+- **Frontend**: React, TailwindCSS, React-Markdown
+- **Backend**: FastAPI, Scapy, Groq (LLaMA 3 API)
+- **Deployment**: Vercel (Frontend), Render/Savela (Backend)
+- **AI**: LLaMA-3 (Groq API) for summary generation
+- **Utilities**: dotenv, UUID, CORS Middleware
+
 ## Getting Started
 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or later recommended)
 - [npm](https://www.npmjs.com/), [yarn](https://yarnpkg.com/), or [pnpm](https://pnpm.io/)
+- [Python](https://www.python.org/) (v3.13)
+
 
 ### Installation
 
@@ -39,7 +49,7 @@ yarn install
 pnpm install
 ```
 
-### Running Locally
+### Running Frontend Locally
 
 Start the development server:
 
@@ -50,6 +60,33 @@ yarn dev
 # or
 pnpm dev
 ```
+
+### Running Backend Locally
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+pip install -r requirements.txt
+```
+
+Create a .env file and add your Groq API key:
+GROQ_API_KEY=your_key_here
+Run the backend:
+```bash
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Start the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
+
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
