@@ -71,7 +71,10 @@ pip install -r requirements.txt
 ```
 
 Create a .env file and add your Groq API key:
+```bash
 GROQ_API_KEY=your_key_here
+```
+
 Run the backend:
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000

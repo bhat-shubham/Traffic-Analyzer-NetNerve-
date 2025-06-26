@@ -1,6 +1,6 @@
 "use client";
 import { FileUpload } from "../components/ui/file-upload";
-import { useRef , useState } from 'react';
+import { Suspense, useRef , useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import {SplitText} from "gsap/SplitText";
@@ -118,7 +118,7 @@ export default function Home() {
       ) : (
     <div
       className="parent bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
-  <div ref={homeRef} className="h-screen flex-col align-middle items-center">
+  <div ref={homeRef} className="h-[85vh] relative flex-col align-middle items-center">
       <div className="py-5 navbar">
         <div className="flex-1">
           <Link href="/" className="px-8 text-3xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">NetNerve</Link>
@@ -169,11 +169,18 @@ export default function Home() {
             setTotalDataSize={setTotalDataSize}
             setSummary={setSummary} 
             // setUploadData={setUploadData}
-            />
-            <p className="font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">It May Take a Longer Time To Process Due To Server Restraints :)</p>
+            />          
           </div>
         </div>
       </div>
+      </div>
+      <div className="py-10 flex justify-center items-center align-middle">
+        <Suspense fallback={<p>Loading Demo...</p>}>
+      <video width="1250" height="240" className="rounded-2xl" autoPlay playsInline loop muted>
+        <source src="/Demo.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      </Suspense>
       </div>
       <Features featureRef={featureRef} />
       <div ref={working} className="h-[50x]">
