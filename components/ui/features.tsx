@@ -8,7 +8,7 @@ interface FeaturesProps {
 const Features = ({ featureRef }: FeaturesProps) => {
   return (
     <section>
-      <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl mb-5 text-center">
+      <h1 className="text-green-400 text-6xl mb-5 text-center">
         Features
       </h1>
       <div ref={featureRef} className="p-2 grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-7xl mx-auto w-full">

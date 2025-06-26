@@ -46,7 +46,7 @@ export default function Home() {
       mask: "lines",
       onSplit: (self) => {
         parasplit = gsap.from(self.lines, {
-          duration: 0.8,
+          duration: 0.5,
           yPercent: 100,
           opacity: 0,
           stagger: 0.3,
@@ -58,10 +58,10 @@ export default function Home() {
 
     gsap.from(split.chars, {
       opacity: 0,
-      x: 50,
+      x: 40,
       autoAlpha: 0, // handles opacity + visibility
-      stagger: 0.05,
-      duration: 0.5,
+      stagger: 0.04,
+      duration: 0.4,
       ease: "ealstic.in",
     });
     gsap.from(featureRef.current, {
@@ -117,7 +117,7 @@ export default function Home() {
         <ResultPage file={file} protocols={protocols} packetData={packetData} totalDataSize={totalDataSize} summary={summary ?? ""}/>
       ) : (
     <div
-      className="parent bg-gradient-to-r from-[#1B3A31] to-[#253E36] font-[Poppins] font-extrabold">
+      className="parent bg-gradient-to-r from-[#063747] to-[#0a466c] font-[Poppins] font-extrabold">
   <div ref={homeRef} className="h-[85vh] relative flex-col align-middle items-center">
       <div className="py-5 navbar">
         <div className="flex-1">
@@ -141,21 +141,15 @@ export default function Home() {
           </ul>
         </div>
       </div>
-      <div className="py-35 px-10 flex justify-between">
+      <div className="py-30 px-10 flex justify-between">
         
-        <div  className="h-1/2 w-1/2 rounded-md flex flex-col ">
-          <h1 ref={headline} className="invisible text-7xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-green-200">
-            AI Powered Packet Analyzer
+        <div  className="h-1/2 w-1/2 flex flex-col ">
+          <h1 ref={headline} className="invisible text-6xl text-green-200">
+            Transform Raw <span className="text-green-400">Packet Data</span> into <span className="text-green-400">  Actionable Intelligence</span>
           </h1>
-          <p ref={para} className="invisible mt-5 text-green-200">
-            Our cutting-edge platform leverages artificial intelligence to
-            simplify and enhance the analysis of PCAP and CAP files. Instantly
-            upload your packet captures and let our intelligent engine detect
-            anomalies, suspicious patterns, and potential threats—no manual
-            inspection needed. Designed for security professionals, researchers,
-            and students, our tool provides actionable insights with speed,
-            accuracy, and ease. Stay ahead of cyber threats with real-time
-            analysis, visualizations, and recommendations powered by AI.
+          <p ref={para} className="invisible mt-5 text-lg text-green-200">
+            Our AI-driven platform transforms raw network packet captures into clear, actionable <span className="text-green-400">cybersecurity intelligence.</span> By applying advanced machine-learning models, it automatically analyzes traffic flows, extracts key metadata, and highlights anomalies or malicious behaviors <span className="text-green-400">without any manual effort.</span> For Every capture files—cloud-based processing delivers real-time threat alerts and interactive visualizations of network traffic.
+            Simply upload a capture and receive <span className="text-green-400"> easy-to-understand insights,</span> reports, and recommendations to help mitigate cyber threats.
           </p>
         </div>
         <div className="w-1/3 rounded-md ">
@@ -187,7 +181,7 @@ export default function Home() {
        <Horizontalscroll />
       </div>
       <div ref={testimonialRef} className="h-[98vh] items-center justify-center align-middle">
-        <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent text-6xl text-center">
+        <h1 className="text-green-400 text-6xl text-center">
           Testimonials
         </h1>
       <AnimatedTestimonials testimonials={testimonials} />

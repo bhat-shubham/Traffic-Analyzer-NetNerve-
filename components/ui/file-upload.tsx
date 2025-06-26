@@ -220,7 +220,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
           <GridPattern />
         </div>
         <div className="flex flex-col items-center justify-center">
-          <p className="relative z-20 font-sans font-bold text-neutral-700 dark:text-neutral-300 text-base">
+          <p className="relative z-20 font-sans font-extrabold text-neutral-700 dark:text-blue-200 text-xl">
             Upload Your Packet Capture File Here
           </p>
           <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">

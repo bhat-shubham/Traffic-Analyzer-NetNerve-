@@ -5,7 +5,7 @@ import { FaUpload, FaBrain, FaChartBar } from "react-icons/fa";
 import { LuFileDigit } from "react-icons/lu";
 const Example = () => {
   return (
-    <div className="bg-neutral-800">
+    <div className="">
     
       <HorizontalScrollCarousel />
       </div>
@@ -21,8 +21,8 @@ const HorizontalScrollCarousel = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["11%", "-65%"]);
 
   return (
-    <section ref={targetRef} className="relative h-[400vh] bg-gradient-to-r from-[#1B3A31] to-[#253E36]">
-      <h1 className="bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] mt-10 bg-clip-text text-transparent text-6xl text-center">
+    <section ref={targetRef} className="relative h-[400vh]">
+      <h1 className=" py-10 text-green-400 text-6xl text-center">
         How This Works?
       </h1>
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
