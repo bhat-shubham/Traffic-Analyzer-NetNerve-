@@ -206,7 +206,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
       <motion.div
       
         whileHover="animate"
-        className="p-10 group/file block rounded-lg w-full relative overflow-hidden"
+        className="group/file block rounded-lg w-full relative overflow-hidden"
       >
         <input
           key={inputKey}
@@ -217,17 +217,15 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
           onChange={(e) => handleFileChange(Array.from(e.target.files || []))}
           className="hidden"
         />
-        <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
-          <GridPattern />
-        </div>
-        <div className="flex flex-col items-center justify-center">
+        <motion.div
+        className="flex px-1 py-12 bg-black/5 border-t-green-500 border-l-green-500 border-r-blue-400 border-b-blue-400 backdrop-blur-xl border-white/10 rounded-2xl border-3 flex-col items-center justify-center">
           <p className="relative z-20 font-sans font-extrabold text-neutral-700 dark:text-white text-2xl">
-            Upload Your Capture File Here
+            Upload Your <span className="text-green-400">Capture File</span> Here
           </p>
-          <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">
+          <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-5">
             Drop Your Files Here or Click to Upload ( .cap or .pcap )
           </p>
-          <p className="font-sans font-normal text-white mt-1" >* Only Files Below ~2MB Can Be Processed For Now</p>
+          <p className="font-sans font-normal text-neutral-400 mt-1" >* Only Files Below ~2MB Can Be Processed For Now</p>
           <div className="relative w-full mt-10 max-w-xl mx-auto">
             {files.length > 0 &&
               files.map((file, idx) => (
@@ -361,32 +359,32 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
               ></motion.div>
             )}
           </div>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
 };
 
-export function GridPattern() {
-  const columns = 15;
-  const rows = 11;
-  return (
-    <div className="flex bg-gradient-to-r from-[#44A08D] to-[#093637] shrink-0 flex-wrap justify-center items-center gap-x-px gap-y-px scale-110 p-0 rounded-md">
-      {Array.from({ length: rows }).map((_, row) =>
-        Array.from({ length: columns }).map((_, col) => {
-          const index = row * columns + col;
-          return (
-            <div
-              key={`${col}-${row}`}
-              className={`w-10 h-10 flex shrink-0 rounded-[2px] ${
-                index % 2 === 0
-                  ? "bg-[#59B2A4]" // soft teal
-                  : "bg-[#0F3E3A] shadow-[inset_0_0_3px_rgba(255,255,255,0.1)]"
-              }`}
-            />
-          );
-        })
-      )}
-    </div>
-  );
-}
+// export function GridPattern() {
+//   const columns = 15;
+//   const rows = 11;
+//   return (
+//     <div className="flex bg-gradient-to-r from-[#44A08D] to-[#093637] shrink-0 flex-wrap justify-center items-center gap-x-px gap-y-px scale-110 p-0 rounded-md">
+//       {Array.from({ length: rows }).map((_, row) =>
+//         Array.from({ length: columns }).map((_, col) => {
+//           const index = row * columns + col;
+//           return (
+//             <div
+//               key={`${col}-${row}`}
+//               className={`w-10 h-10 flex shrink-0 rounded-[2px] ${
+//                 index % 2 === 0
+//                   ? "bg-[#59B2A4]" // soft teal
+//                   : "bg-[#0F3E3A] shadow-[inset_0_0_3px_rgba(255,255,255,0.1)]"
+//               }`}
+//             />
+//           );
+//         })
+//       )}
+//     </div>
+//   );
+// }
