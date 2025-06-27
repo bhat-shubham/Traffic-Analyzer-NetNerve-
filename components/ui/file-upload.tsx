@@ -218,7 +218,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
           className="hidden"
         />
         <motion.div
-        className="flex px-1 py-12 bg-black/5 border-t-green-500 border-l-green-500 border-r-blue-400 border-b-blue-400 backdrop-blur-xl border-white/10 rounded-2xl border-3 flex-col items-center justify-center">
+        className="flex px-1 py-13 bg-black/5 border-t-green-500 border-l-green-500 border-r-blue-400 border-b-blue-400 backdrop-blur-xl border-white/10 rounded-2xl border-3 flex-col items-center justify-center">
           <p className="relative z-20 font-sans font-extrabold text-neutral-700 dark:text-white text-2xl">
             Upload Your <span className="text-green-400">Capture File</span> Here
           </p>
@@ -226,14 +226,14 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
             Drop Your Files Here or Click to Upload ( .cap or .pcap )
           </p>
           <p className="font-sans font-normal text-neutral-400 mt-1" >* Only Files Below ~2MB Can Be Processed For Now</p>
-          <div className="relative w-full mt-10 max-w-xl mx-auto">
+          <div className="relative w-full px-7 mt-5 max-w-xl mx-auto">
             {files.length > 0 &&
               files.map((file, idx) => (
                 <motion.div
                   key={"file" + idx}
                   layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
                   className={cn(
-                    "relative overflow z-40 bg-white dark:bg-neutral-900 flex flex-col items-start justify-start p-5 mt-4 mx-auto rounded-md",
+                    "relative z-40 bg-white/10 bg-clip-padding backdrop-blur-xl flex flex-col items-start justify-start p-4 mt-4 mx-auto rounded-lg",
                     "shadow-sm"
                   )}
                 >
@@ -242,7 +242,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       layout
-                      className="text-base text-neutral-700 dark:text-neutral-300 truncate max-w-xs"
+                      className="text-xl text-neutral-700 dark:text-neutral-100 truncate max-w-xs"
                     >
                       {file.name}
                     </motion.p>
@@ -262,14 +262,14 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
                     transition={{duration: 0.2,type: "spring",stiffness: 300,damping: 20,}}
                     >
                     <CgFileRemove
-                      size={20}
+                      size={25}
                       onClick={() => handleRemove(file)}
                       className="cursor-pointer"
                     />
                     </motion.div>
                   </div>
-                  <div className="rounded-2xl transition-all duration-500 z-10 mt-5 bg-gradient-to-r from-[#1d4732] to-[#07f88c] h-10 w-[23.5vw]"  style={{ width: `${progress}%` }}>
-                  <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border h-10 rounded-2xl flex items-center justify-center text-xl w-[23.5vw]">
+                  <div className="rounded-2xl transition-all duration-500 z-10 mt-5 bg-gradient-to-r from-[#2c9f65] to-[#03afac] h-10 w-full"  style={{ width: `${progress}%` }}>
+                  <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border-2 border-green-400 h-10 rounded-2xl flex items-center justify-center text-xl w-[24.7vw]">
                     <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
