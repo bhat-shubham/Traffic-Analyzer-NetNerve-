@@ -117,11 +117,11 @@ export default function Home() {
         <ResultPage file={file} protocols={protocols} packetData={packetData} totalDataSize={totalDataSize} summary={summary ?? ""}/>
       ) : (
     <div
-      className="parent bg-gradient-to-r from-[#063747] to-[#0a466c] font-[Poppins] font-extrabold">
+      className="parent bg-gradient-to-r from-[#063747] to-[#0a466c] font-[Poppins,Georgia] font-extrabold">
   <div ref={homeRef} className="h-[85vh] relative flex-col align-middle items-center">
       <div className="py-5 navbar">
         <div className="flex-1">
-          <Link href="/" className="px-8 text-3xl bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">NetNerve</Link>
+          <Link href="/" className="px-8 text-3xl text-green-400">NetNerve</Link>
           <p className="px-8 ">Network&apos;s nerve center, AI-powered.</p>
         </div>
         <div className="flex-none">
@@ -141,7 +141,7 @@ export default function Home() {
           </ul>
         </div>
       </div>
-      <div className="py-30 px-10 flex justify-between">
+      <div className="py-25 px-10 flex align-middle items-center justify-between">
         
         <div  className="h-1/2 w-1/2 flex flex-col ">
           <h1 ref={headline} className="invisible text-6xl text-green-200">
@@ -180,7 +180,7 @@ export default function Home() {
       <div ref={working} className="h-[50x]">
        <Horizontalscroll />
       </div>
-      <div ref={testimonialRef} className="h-[98vh] items-center justify-center align-middle">
+      <div ref={testimonialRef} className="h-[95vh] items-center justify-center align-middle">
         <h1 className="text-green-400 text-6xl text-center">
           Testimonials
         </h1>

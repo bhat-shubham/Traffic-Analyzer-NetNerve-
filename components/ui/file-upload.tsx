@@ -202,8 +202,9 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
     setInputKey(prev => prev + 1); // Reset input to allow re-upload
   }
   return (
-    <div className="w-full" {...getRootProps()}>
+    <div className="rounded-2xl border-green-400 w-full" {...getRootProps()}>
       <motion.div
+      
         whileHover="animate"
         className="p-10 group/file block rounded-lg w-full relative overflow-hidden"
       >
@@ -220,8 +221,8 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
           <GridPattern />
         </div>
         <div className="flex flex-col items-center justify-center">
-          <p className="relative z-20 font-sans font-extrabold text-neutral-700 dark:text-blue-200 text-xl">
-            Upload Your Packet Capture File Here
+          <p className="relative z-20 font-sans font-extrabold text-neutral-700 dark:text-white text-2xl">
+            Upload Your Capture File Here
           </p>
           <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-2">
             Drop Your Files Here or Click to Upload ( .cap or .pcap )
@@ -334,8 +335,8 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
                   duration: 2,
                 }}
                 className={cn(
-                  "cursor-pointer relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-[#202F34] flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
-                  "shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
+                  "cursor-pointer shadow-[0_0_10px_rgba(70,700,128,0.9)] relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-[#202F34] flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
+                  // "shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
                 )}
               >
                 {isDragActive ? (
@@ -345,10 +346,10 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
                     className="text-neutral-600 flex flex-col items-center"
                   >
                     Drop it
-                    <IconUpload className="h-6 w-6 text-neutral-600 dark:text-neutral-400" />
+                    <IconUpload className="h-6 w-6 text-neutral-600 dark:text-green-400" />
                   </motion.p>
                 ) : (
-                  <IconUpload className="h-6 w-6 text-neutral-600 dark:text-neutral-300" />
+                  <IconUpload className="h-9 stroke-3 w-9 text-neutral-600 dark:text-green-400" />
                 )}
               </motion.div>
             )}
