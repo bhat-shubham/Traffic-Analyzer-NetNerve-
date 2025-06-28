@@ -53,33 +53,31 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
         className="absolute inset-0 z-0"
       style={{
         background:
-        "radial-gradient(120% 100% at 50% 100%, rgba(0, 255, 164, 0.4), rgba(0, 146, 255, 0.5), rgba(20, 40, 50, 0.5))",
-        maskImage:
-        "radial-gradient(1920px 100% at 50% 100%, rgba(10, 10, 10, 0.8) 0%, rgba(0,0,0,0.4) 97%, transparent 100%)"
+        "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139, 92, 246, 0.25), transparent 70%), #000000",
+        // maskImage:
+        // "radial-gradient(1920px 100% at 50% 100%, rgba(10, 10, 10, 0.8) 0%, rgba(0,0,0,0.4) 97%, transparent 100%)"
       }}
       />
+      <div className="w-full h-full bg-[#1a1d29]">
+  <div
+    className="absolute inset-0 bg-gradient-to-br from-green-500/25 via-blue-500/15 to-purple-500/25"
+  />
+  <div
+    className="absolute inset-0 bg-[radial-gradient(ellipse_100%_150%_at_50%_30%,rgba(34,197,94,0.1),transparent_60%)]"
+  />
+  <div
+    className="absolute inset-0 bg-[radial-gradient(ellipse_150%_100%_at_80%_80%,rgba(59,130,246,0.25),transparent_60%)]"
+  />
+</div>
       
       <div className="relative z-10 flex justify-center items-start">
-        <h1 className="text-5xl font-bold bg-gradient-to-r from-[#A1FFCE] to-[#AFAFD1] bg-clip-text text-transparent">
-          Here&apos;s What Our Analysis Found
+        <h1 className="text-5xl font-bold text-green-400">
+          Sniffed, Scanned, and Summarized 🤖
         </h1>
       </div>
-      <div className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-xl border border-white/20 p-6 rounded-2xl text-xl font-bold space-y-4 mt-10">
-        <p>
-          <FaFileAlt className="inline-block mr-2 text-xl" />
-          Uploaded File : | {fileName} |
-          </p>
-        <p>
-          <FaFolderOpen className="inline-block mr-2 text-xl" />
-          File Size : | {fileSize} |
-          </p>
-        <p>
-          <FaGetPocket className="inline-block mr-2 text-xl" />
-          Current Status :  | Processed |
-          </p>
-      </div>
-      <div className="mt-10 p-6 h-[70vh] rounded-2xl bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-[0_0_25px_rgba(59,130,246,0.6)] border-1 border-blue-400 overflow-y-auto">
-      <h1 className="text-[#A1FFCE] text-2xl font-bold mb-4">AI Summary and Findings:</h1>
+
+      <div className="mt-10 p-6 h-[80vh] rounded-2xl backdrop-blur-xl shadow-[0_0_55px_rgba(59,130,246,0.6)] border-2 border-blue-400 overflow-y-auto">
+      {/* <h1 className=" text-teal-500 text-3xl font-extrabold mb-4">Sniffed, Scanned, and Summarized 🤖</h1> */}
     <motion.p
      className="text-white/90 text-base leading-relaxed"
      initial={{ opacity: 0 }}
@@ -100,6 +98,20 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
   }}
       />
   </motion.p>
+</div>
+      <div className="bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur-xl shadow-xl border border-white/20 p-6 rounded-2xl text-xl font-bold space-y-4 mt-10">
+        <p>
+          <FaFileAlt className="inline-block mr-2 text-xl" />
+          Uploaded File : | {fileName} |
+          </p>
+        <p>
+          <FaFolderOpen className="inline-block mr-2 text-xl" />
+          File Size : | {fileSize} |
+          </p>
+        <p>
+          <FaGetPocket className="inline-block mr-2 text-xl" />
+          Current Status :  | Processed |
+          </p>
 </div>
 
 <div className="py-10 grid grid-cols-1 h-1/3 md:grid-cols-2 gap-6">
