@@ -50,14 +50,32 @@ const Features = ({ featureRef }: FeaturesProps) => {
             className="-z-1 absolute -right-15 lg:-right-[40%]  filter -bottom-20 object-contain"
           />
         </WobbleCard>
-        <WobbleCard containerClassName="col-span-1 lg:col-span-3 bg-blue-900 min-h-[500px] lg:min-h-[600px] xl:min-h-[300px]">
-          <div className="max-w-4xl flex gap-25 overflow-hidden">
+                <WobbleCard containerClassName="col-span-1 min-h-[300px] bg-green-700">
+          <h2 className="max-w-80  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
+            📝 Natural Language Traffic Summaries
+          </h2>
+          <p className="mt-4 max-w-[26rem] text-left  text-base/6 text-neutral-200">
+            Get plain-language explanations of unusual activities, key communication patterns, and potential risks, all presented in an easily digestible format.
+          </p>
+          <Image
+            src="/natural_lang.png"
+            width={500}
+            height={500}
+            alt="linear demo image"
+            className="-z-1 absolute -right-15 lg:-right-[30%]  filter -bottom-28 object-contain"
+          />
+        </WobbleCard>
+        <WobbleCard
+          containerClassName="col-span-1 lg:col-span-2 h-full bg-blue-900 min-h-[500px] lg:min-h-[300px]"
+          className=""
+        > 
+        <div className="max-w-4xl flex gap-25 overflow-hidden">
             <div>
               <h2 className="max-w-sm md:max-w-lg  text-left text-balance text-base md:text-xl lg:text-3xl font-semibold tracking-[-0.015em] text-white">
                 🔒 Privacy-First Architecture
               </h2>
               <p className="mt-4 max-w-[23rem] text-left  text-base/6 text-neutral-200">
-                Your data stays yours. All file processing happens securely,
+                Your Uploaded File Is Never Saved On The Server,Your data stays yours. All file processing happens securely,
                 ensuring confidentiality and compliance with modern
                 cybersecurity standards.
               </p>

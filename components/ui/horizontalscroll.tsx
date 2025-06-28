@@ -42,7 +42,7 @@ const Card = ({ card }: { card: CardType }) => {
     
     <div
       key={card.id}
-      className=" rounded-4xl group relative h-[450px] w-[650px] overflow-hidden">
+      className=" rounded-4xl group border-2 border-green-400 shadow-[0_0_525px_rgba(59,220,156,0.4)] relative h-[450px] w-[650px] overflow-hidden">
       <div
         style={{       
           backgroundImage: `url('/${card.id}.png')`,   
