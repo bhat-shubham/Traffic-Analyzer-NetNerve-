@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://netnerve.vercel.app/sitemap.xml
