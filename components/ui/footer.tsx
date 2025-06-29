@@ -1,8 +1,9 @@
+import Image from "next/image";
 import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content rounded py-5">
+    <footer className="footer footer-horizontal footer-center bg-base-200 text-base-content rounded py-4">
   <nav className="grid grid-flow-col gap-10">
     <a href="https://peerlist.io/bhatshubham" className="link link-hover">About us</a>
     <a href="https://www.linkedin.com/in/bhatsupshubham/" className="link link-hover">Contact</a>
@@ -27,6 +28,13 @@ const Footer = () => {
 </svg>
       </a>
     </div>
+          <a href="https://www.producthunt.com/products/netnerve?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-netnerve" target="_blank">
+      <Image
+      width={250}
+      height={40}
+      className="mt-5"
+      // style={{ width: 250, height: 40 }} 
+      src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=985411&theme=dark&t=1751176300919" alt="NetNerve - Network&#0039;s&#0032;nerve&#0032;center&#0044;&#0032;AI&#0045;powered | Product Hunt"/></a>
   </nav>
   <aside>
     <p>Copyright © {new Date().getFullYear()} - Shubham Bhat</p>
