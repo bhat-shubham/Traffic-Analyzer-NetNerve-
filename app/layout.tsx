@@ -20,6 +20,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
+  other:{
+    "google-site-verification": "20xIlTGx1OdEV8L7OZ5fK6xj15az7ueXP8v8pAwTLD8"
+
+  },
   title: "NetNerve | AI Powered PCAP Analysis",
   description: "AI-powered platform for analyzing PCAP and CAP files. Instantly detect anomalies, threats, and patterns in your network traffic.",
   keywords: [
