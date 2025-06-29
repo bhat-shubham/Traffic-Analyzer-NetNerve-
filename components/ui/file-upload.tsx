@@ -361,6 +361,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
           </div>
         </motion.div>
       </motion.div>
+      <p className="mt-2 flex justify-center">Need a .cap File To Test? Download One From:<span className=" text-green-400 underline"><a target="_" href="https://www.wireshark.org/download/automated/captures/"> WireShark</a></span></p>
     </div>
   );
 };
