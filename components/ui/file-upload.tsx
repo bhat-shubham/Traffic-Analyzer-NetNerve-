@@ -161,7 +161,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
     } catch (error) {
       console.error("Error during file processing:", error);
       if (!isCancelledRef.current) {
-        toast.error(error instanceof Error ? error.message : "An error occurred");
+        toast.error("Error occurred while processing File.");
       }
     } finally {
       if (!isCancelledRef.current) {

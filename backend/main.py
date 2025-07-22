@@ -6,6 +6,7 @@ from scapy.layers.inet import IP, TCP, UDP, ICMP
 from scapy.layers.l2 import ARP
 import uuid,os,datetime
 from dotenv import load_dotenv
+import magic
 load_dotenv()
 from groq import Groq
 timestamp = datetime.datetime.now().isoformat()
@@ -15,7 +16,7 @@ from fastapi import Body
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000","https://netnerve.onrender.com","https://netnerve.vercel.app"],
+    allow_origins=["http://localhost:3000","https://netnerve.vercel.app"],
     allow_credentials=True,
     allow_methods=["POST","OPTIONS"],
     allow_headers=["Content-Type"],
@@ -69,30 +70,38 @@ async def create_upload_file(file: UploadFile):
     valid_extensions = [".pcap", ".cap"]
     if not (file.filename and file.filename.lower().endswith(tuple(valid_extensions))):
         raise HTTPException(status_code=400, detail="Invalid file extension.")
-    file_path= f"{uuid.uuid4()}.pcap"
-    content = await file.read();
+    file_head = await file.read(2048)
+    mime = magic.from_buffer(file_head, mime=True)
+    file.file.seek(0)
+    if mime not in ["application/vnd.tcpdump.pcap", "application/octet-stream"]:
+        raise HTTPException(status_code=400, detail="Invalid Or Corrupted File")
+    file_path = f"{uuid.uuid4()}.pcap"
+    content = file_head + await file.read()
     if(len(content) > MAX_FILE_SIZE_MB * 1024 * 1024):
         raise HTTPException(status_code=400, detail="File size exceeds the limit of 5MB.")
     with open(file_path, "wb") as f:
         f.write(content)
+    packets = None
     try:
-        packets=rdpcap(file_path)
+        packets = rdpcap(file_path)
+        protocols = set()
+        for packet in packets:
+            layer = packet
+            while layer:
+                protocols.add(layer.__class__.__name__)
+                layer = layer.payload  # move to next inner layer
+        packet_data = extract_packet_data(file_path)
+        total_data_size = sum(pkt.get('packet_len', 0) for pkt in packet_data)
+        result = {
+            "protocols": list(protocols),
+            "packet_data": packet_data,
+            "total_data_size": total_data_size
+        }
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid or corrupted pcap file: {e}")
-    protocols=set()
-    for packet in packets:
-        layer = packet
-        while layer:
-            protocols.add(layer.__class__.__name__)
-            layer = layer.payload  # move to next inner layer
-    packet_data = extract_packet_data(file_path)
-    os.remove(file_path)  # Clean up the temporary file after processing
-    total_data_size = sum(pkt.get('packet_len', 0) for pkt in packet_data)
-    return {
-        "protocols": list(protocols),
-        "packet_data": packet_data,
-        "total_data_size": total_data_size
-    }
+    finally:
+        os.remove(file_path)  # Clean up the temporary file after processing
+    return result
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 
@@ -104,7 +113,7 @@ def build_summary_prompt(protocols, packet_data, total_data_size):
     lines.append(f"Total data transferred: {total_data_size} bytes.")
 
     if packet_data:
-        sample = packet_data[:5]  # First 3 packets
+        sample = packet_data[:5]  # First 5 packets
         for i, pkt in enumerate(sample, 1):
             lines.append(
                 f"Sample {i}: {pkt.get('src_ip')}:{pkt.get('src_port')} → "
@@ -120,7 +129,7 @@ async def generate_ai_summary(protocols, packet_data, total_data_size):
     user_prompt = build_summary_prompt(protocols, packet_data, total_data_size)
 
     chat = client.chat.completions.create(
-        model="llama-3.3-70b-versatile",  # or "llama-3.3-70b-versatile" if that's what you're using
+        model="llama-3.3-70b-versatile", #other are "llama-3.3-70b-instruct", "llama-3.3-70b-chat"
         messages=[
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_prompt}
