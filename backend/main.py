@@ -6,7 +6,8 @@ from scapy.layers.inet import IP, TCP, UDP, ICMP
 from scapy.layers.l2 import ARP
 import uuid,os,datetime
 from dotenv import load_dotenv
-import magic
+# import magic
+import filetype
 load_dotenv()
 from groq import Groq
 timestamp = datetime.datetime.now().isoformat()
@@ -71,11 +72,9 @@ async def create_upload_file(file: UploadFile):
     if not (file.filename and file.filename.lower().endswith(tuple(valid_extensions))):
         raise HTTPException(status_code=400, detail="Invalid file extension.")
     file_head = await file.read(2048)
-    mime = magic.from_buffer(file_head, mime=True)
-    file.file.seek(0)
-    if mime not in ["application/vnd.tcpdump.pcap", "application/octet-stream"]:
-        raise HTTPException(status_code=400, detail="Invalid Or Corrupted File")
     file_path = f"{uuid.uuid4()}.pcap"
+    # kind = filetype.guess(file_path)
+    # print(f"File type detected: {kind}")
     content = file_head + await file.read()
     if(len(content) > MAX_FILE_SIZE_MB * 1024 * 1024):
         raise HTTPException(status_code=400, detail="File size exceeds the limit of 5MB.")

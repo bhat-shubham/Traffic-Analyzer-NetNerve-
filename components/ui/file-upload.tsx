@@ -87,7 +87,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const generateSummary = async (protocols: string[], packet_data: any[], total_data_size: number[]) => {
     try {
-      const summaryRes = await fetch("https://netnerve-rlqu4.kinsta.app/generate-summary/", {
+      const summaryRes = await fetch("https://netnerve.onrender.com/generate-summary/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -126,7 +126,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
       // axios request that handles both upload progress and processing
       const response = await axios({
         method: 'post',
-        url: 'https://netnerve-rlqu4.kinsta.app/uploadfile/',
+        url: 'https://netnerve.onrender.com/uploadfile/',
         data: formData,
         signal: controller.signal,
         onUploadProgress: (axiosProgressEvent) => {
@@ -161,7 +161,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
     } catch (error) {
       console.error("Error during file processing:", error);
       if (!isCancelledRef.current) {
-        toast.error("Error occurred while processing File.");
+        toast.error(error instanceof Error ? error.message : "An error occurred");
       }
     } finally {
       if (!isCancelledRef.current) {
