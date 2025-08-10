@@ -17,21 +17,22 @@ gsap.registerPlugin(useGSAP, SplitText, ScrollTrigger, ScrollSmoother);
 export default function Home() {
   const [file,setFile] = useState<File | null>(null);
   const headline = useRef(null);
-  const working = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
-  const para = useRef(null);
+  const working = useRef<HTMLDivElement>(null);
+  const para = useRef<HTMLParagraphElement>(null);
   const [isProcessed, setIsProcessed] = useState(false);
-  const homeRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
-  const featureRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
-  const testimonialRef = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+  const homeRef = useRef<HTMLDivElement>(null);
+  const featureRef = useRef<HTMLDivElement>(null);
+  const testimonialRef = useRef<HTMLDivElement>(null);
   const [protocols, setProtocols] = useState<string[]>([]);
   const [totalDataSize, setTotalDataSize] = useState<number[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [packetData, setPacketData] = useState<any[]>([]);
   const [summary, setSummary] = useState<string | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   // const [uploadData, setUploadData] = useState<any>(null);
 
-  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
+    ref?.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useGSAP(() => {
@@ -121,42 +122,93 @@ export default function Home() {
         <div className="bg-black px-8 text-center">Services May Feel Slow Due To Low Backend Specs as This Is Working On Free Tier Of Render :( If You Can,<Link href="https://ko-fi.com/netnerve"><span className="text-blue-400 underline">Sponsor The Project!</span></Link></div>
   <div ref={homeRef} className="h-[85vh] relative flex-col align-middle items-center">
     
-      <div className="py-5 navbar">
-        
-        <div className="flex-1">
-          
-          <Link href="/" className="px-8 text-3xl text-green-400">NetNerve</Link>
-          <p className="px-8 ">Network&apos;s nerve center, AI-powered.</p>
+      <div className="py-2 md:py-5 navbar bg-transparent relative z-50">
+        <div className="flex-1 flex-col items-center">
+          <Link href="/" className="px-4 md:px-8 text-2xl md:text-3xl text-green-400">NetNerve</Link>
+          <p className="md:block px-4 md:px-8 text-sm md:text-base">Network&apos;s nerve center, AI-powered.</p>
         </div>
-        <div className="flex-none">
-          <ul className="menu menu-horizontal px-15 gap-10">
-            <li>
-              <button onClick={() => scrollToSection(homeRef)}>Home</button>
-            </li>
-            <li>
-              <button onClick={() => scrollToSection(featureRef)}>Features</button>
-            </li>
-            <li>
-              <button onClick={() => scrollToSection(working)}>Working</button>
-            </li>
-            <li>
-              <button onClick={() => scrollToSection(testimonialRef)}>Testimonials</button>
-            </li>
+        
+        {/* Mobile menu button */}
+        <div className="md:hidden flex items-center">
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="text-green-400 hover:text-green-300 focus:outline-none mr-4"
+            aria-label="Toggle menu"
+          >
+            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {isMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              )}
+            </svg>
+          </button>
+        </div>
+
+        <div className="hidden md:flex">
+          <ul className="menu menu-horizontal px-4 gap-4 md:gap-6 lg:gap-10">
+            {['Home', 'Features', 'Working', 'Testimonials'].map((item) => (
+              <li key={item}>
+                <button 
+                  onClick={() => {
+                    const refs = {
+                      'Home': homeRef,
+                      'Features': featureRef,
+                      'Working': working,
+                      'Testimonials': testimonialRef
+                    } as const;
+                    const ref = refs[item as keyof typeof refs];
+                    if (ref) scrollToSection(ref);
+                    setIsMenuOpen(false);
+                  }}
+                  className="hover:text-green-400 transition-colors duration-200"
+                >
+                  {item}
+                </button>
+              </li>
+            ))}
           </ul>
         </div>
+
+        {/* ham menu */}
+        {isMenuOpen && (
+          <div className="absolute top-full left-0 right-0 bg-[#0a466c] md:hidden shadow-lg rounded-b-lg">
+            <ul className="py-4 px-4 space-y-4">
+              {['Home', 'Features', 'Working', 'Testimonials'].map((item) => (
+                <li key={item}>
+                  <button
+                    onClick={() => {
+                      const refs = {
+                        'Home': homeRef,
+                        'Features': featureRef,
+                        'Working': working,
+                        'Testimonials': testimonialRef
+                      } as const;
+                      const ref = refs[item as keyof typeof refs];
+                      if (ref) scrollToSection(ref);
+                      setIsMenuOpen(false);
+                    }}
+                    className="block w-full text-left px-4 py-2 text-lg hover:bg-[#063747] rounded-md transition-colors duration-200"
+                  >
+                    {item}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
-      <div className="py-25 px-10 flex align-middle items-center justify-between">
+      <div className="md:py-25 py-5 md:px-15 px-5 md:flex md:flex-row flex-col align-middle items-center justify-between">
         
-        <div  className="h-1/2 w-1/2 flex flex-col ">
-          <h1 ref={headline} className="invisible text-6xl text-green-200">
+        <div  className="h-1/2 md:w-1/2 text-cente w-full flex flex-col ">
+          <h1 ref={headline} className="invisible md:text-6xl text-3xl text-green-200">
             Transform Raw <span className="text-green-400">Packet Data</span> into <span className="text-green-400">  Actionable Intelligence</span>
           </h1>
           <p ref={para} className="invisible mt-5 text-lg text-green-200">
-            Our AI-driven platform transforms raw network packet captures into clear, actionable <span className="text-green-400">cybersecurity intelligence.</span> By applying advanced machine-learning models, it automatically analyzes traffic flows, extracts key metadata, and highlights anomalies or malicious behaviors <span className="text-green-400">without any manual effort.</span> For Every capture files—cloud-based processing delivers real-time threat alerts and interactive visualizations of network traffic.
-            Simply upload a capture and receive <span className="text-green-400"> easy-to-understand insights,</span> reports, and recommendations to help mitigate cyber threats.
+            Our AI-driven platform transforms raw network packet captures into clear, actionable <span className="text-green-400">cybersecurity intelligence.</span> By applying advanced machine-learning models, it automatically analyzes traffic flows, extracts key metadata, and highlights anomalies or malicious behaviors <span className="text-green-400">without any manual effort.</span> For Every capture files—cloud-based processing delivers real-time threat alerts and interactive visualizations of network traffic.<span className="hidden md:block">Simply upload a capture and receive <span className="text-green-400"> easy-to-understand insights,</span> reports, and recommendations to help mitigate cyber threats.</span>
           </p>
         </div>
-        <div className="w-1/3 rounded-md ">
+        <div className="w-full py-2 md:w-1/3 md:px-0 rounded-md ">
           <div className="file-upload opacity-0">
             <FileUpload 
             setIsProcessed={setIsProcessed} 

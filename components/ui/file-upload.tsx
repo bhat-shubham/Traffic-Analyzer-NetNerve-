@@ -218,22 +218,22 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
           className="hidden"
         />
         <motion.div
-        className="flex px-1 py-13 bg-black/5 border-t-green-500 border-l-green-500 border-r-blue-400 border-b-blue-400 backdrop-blur-xl border-white/10 rounded-2xl border-3 flex-col items-center justify-center">
+        className="flex p-2 md:py-13 bg-black/5 border-t-green-500 border-l-green-500 border-r-blue-400 border-b-blue-400 backdrop-blur-xl border-white/10 rounded-2xl border-3 flex-col items-center justify-center">
           <p className="relative z-20 font-sans font-extrabold text-neutral-700 dark:text-white text-2xl">
             Upload Your <span className="text-green-400">Capture File</span> Here
           </p>
-          <p className="relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base mt-5">
-            Drop Your Files Here or Click to Upload ( .cap or .pcap )
+          <p className="text-center relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base md:mt-5">
+            Drop Your Files Here or Click to Upload ( .cap or .pcap ) Below 2MB Only
           </p>
-          <p className="font-sans font-normal text-neutral-400 mt-1" >* Only Files Below ~2MB Can Be Processed For Now</p>
-          <div className="relative w-full px-7 mt-5 max-w-xl mx-auto">
+          <p className="hidden md:block font-sans font-normal text-neutral-400 mt-1" >* Only Files Below ~2MB Can Be Processed For Now</p>
+          <div className="relative w-full mt-1 p-1 md:mt-5 w-full">
             {files.length > 0 &&
               files.map((file, idx) => (
                 <motion.div
                   key={"file" + idx}
                   layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
                   className={cn(
-                    "relative z-40 bg-white/10 bg-clip-padding backdrop-blur-xl flex flex-col items-start justify-start p-4 mt-4 mx-auto rounded-lg",
+                    "relative z-40 bg-white/10 bg-clip-padding backdrop-blur-xl flex flex-col items-start justify-start p- mt-4 mx-auto rounded-lg",
                     "shadow-sm"
                   )}
                 >
@@ -333,7 +333,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
                   duration: 2,
                 }}
                 className={cn(
-                  "cursor-pointer shadow-[0_0_10px_rgba(70,700,128,0.9)] relative group-hover/file:shadow-2xl z-40 bg-white dark:bg-[#202F34] flex items-center justify-center h-32 mt-4 w-full max-w-[8rem] mx-auto rounded-md",
+                  "cursor-pointer border border-dashed border-sky-400 md:shadow-[0_0_10px_rgba(70,700,128,0.9)] relative md:group-hover/file:shadow-2xl z-40  md:bg-white md:dark:bg-[#202F34] flex items-center justify-center h-32 mt-4 w-full max-w-full md:max-w-[8rem] mx-auto rounded-md",
                   // "shadow-[0px_10px_50px_rgba(0,0,0,0.1)]"
                 )}
               >
