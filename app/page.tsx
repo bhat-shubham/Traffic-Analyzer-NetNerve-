@@ -118,9 +118,13 @@ export default function Home() {
       ) : (
     <div
       className="parent bg-gradient-to-r from-[#063747] to-[#0a466c] font-[Poppins,Georgia] font-extrabold">
+        <div className="bg-amber-300 px-8 text-center">Services May Feel Slow Due To Low Backend Specs as This Is Working On Free Tier Of Render.If You Can,Sponsor The Project!</div>
   <div ref={homeRef} className="h-[85vh] relative flex-col align-middle items-center">
+    
       <div className="py-5 navbar">
+        
         <div className="flex-1">
+          
           <Link href="/" className="px-8 text-3xl text-green-400">NetNerve</Link>
           <p className="px-8 ">Network&apos;s nerve center, AI-powered.</p>
         </div>
