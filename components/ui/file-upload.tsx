@@ -226,14 +226,14 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
             <span className="hidden sm:inline">Drop Your Files Here or</span> Click to Upload ( .cap or .pcap ) <span className="block sm:hidden">Below 2MB Only</span>
           </p>
           <p className="hidden md:block font-sans font-normal text-neutral-400 mt-1" >* Only Files Below ~2MB Can Be Processed For Now</p>
-          <div className="relative w-full mt-1 p-1 md:mt-5 w-full">
+          <div className="relative w-full mt-1 p-1 md:mt-5">
             {files.length > 0 &&
               files.map((file, idx) => (
                 <motion.div
                   key={"file" + idx}
                   layoutId={idx === 0 ? "file-upload" : "file-upload-" + idx}
                   className={cn(
-                    "relative z-40 bg-white/10 bg-clip-padding backdrop-blur-xl flex flex-col items-start justify-start p- mt-4 mx-auto rounded-lg",
+                    "relative z-40 bg-white/10 bg-clip-padding backdrop-blur-xl flex flex-col items-start justify-start p-4 mt-4 mx-auto rounded-lg",
                     "shadow-sm"
                   )}
                 >
@@ -269,7 +269,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
                     </motion.div>
                   </div>
                   <div className="rounded-2xl transition-all duration-500 z-10 mt-5 bg-gradient-to-r from-[#2c9f65] to-[#03afac] h-10 w-full"  style={{ width: `${progress}%` }}>
-                  <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border-2 border-green-400 h-10 rounded-2xl flex items-center justify-center text-xl w-[24.7vw]">
+                  <button onClick={handleSubmit} disabled={isLoading} className="cursor-pointer gap-2 border-2 border-green-400 h-10 rounded-2xl flex items-center justify-center text-xl md:w-[26.5vw] w-[76.5vw]">
                     <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
