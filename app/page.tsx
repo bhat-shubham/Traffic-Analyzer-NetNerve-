@@ -205,7 +205,7 @@ export default function Home() {
             Transform Raw <span className="text-green-400">Packet Data</span> into <span className="text-green-400">  Actionable Intelligence</span>
           </h1>
           <p ref={para} className="invisible mt-5 text-lg text-green-200">
-            Our AI-driven platform transforms raw network packet captures into clear, actionable <span className="text-green-400">cybersecurity intelligence.</span> By applying advanced machine-learning models, it automatically analyzes traffic flows, extracts key metadata, and highlights anomalies or malicious behaviors <span className="text-green-400">without any manual effort.</span> For Every capture files—cloud-based processing delivers real-time threat alerts and interactive visualizations of network traffic.<span className="hidden md:block">Simply upload a capture and receive <span className="text-green-400"> easy-to-understand insights,</span> reports, and recommendations to help mitigate cyber threats.</span>
+            Our AI-driven platform transforms raw network packet captures into clear, actionable <span className="text-green-400">cybersecurity intelligence.</span> By applying advanced machine-learning models, it automatically analyzes traffic flows, extracts key metadata, and highlights anomalies or malicious behaviors <span className="text-green-400">without any manual effort.</span> <span className="hidden md:block">For Every capture files—cloud-based processing delivers real-time threat alerts and interactive visualizations of network traffic.Simply upload a capture and receive <span className="text-green-400"> easy-to-understand insights,</span> reports, and recommendations to help mitigate cyber threats.</span>
           </p>
         </div>
         <div className="w-full py-2 md:w-1/3 md:px-0 rounded-md ">
@@ -226,7 +226,7 @@ export default function Home() {
       </div>
       <div className="py-10 flex justify-center items-center align-middle">
         <Suspense fallback={<p>Loading Demo...</p>}>
-      <video width="1250" height="240" className="rounded-2xl" autoPlay playsInline loop muted>
+      <video width="1250" height="240" className="rounded-2xl hidden md:block" autoPlay playsInline loop muted>
         <source src="/Demo.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>

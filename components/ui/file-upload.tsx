@@ -202,7 +202,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
     setInputKey(prev => prev + 1); // Reset input to allow re-upload
   }
   return (
-    <div className="rounded-2xl border-green-400 w-full" {...getRootProps()}>
+    <div className="rounded-2xl mt-5 md:mt-0 border-green-400 w-full" {...getRootProps()}>
       <motion.div
       
         whileHover="animate"
@@ -223,7 +223,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
             Upload Your <span className="text-green-400">Capture File</span> Here
           </p>
           <p className="text-center relative z-20 font-sans font-normal text-neutral-400 dark:text-neutral-400 text-base md:mt-5">
-            Drop Your Files Here or Click to Upload ( .cap or .pcap ) Below 2MB Only
+            <span className="hidden sm:inline">Drop Your Files Here or</span> Click to Upload ( .cap or .pcap ) <span className="block sm:hidden">Below 2MB Only</span>
           </p>
           <p className="hidden md:block font-sans font-normal text-neutral-400 mt-1" >* Only Files Below ~2MB Can Be Processed For Now</p>
           <div className="relative w-full mt-1 p-1 md:mt-5 w-full">
@@ -361,7 +361,7 @@ export const FileUpload = ({ onChange, setIsProcessed, isProcessed , setFile , s
           </div>
         </motion.div>
       </motion.div>
-      <p className="mt-2 flex justify-center">Need a .cap File To Test? Download One From:<span className=" text-green-400 underline"><a target="_" href="https://www.wireshark.org/download/automated/captures/"> WireShark</a></span></p>
+      <p className="mt-2  justify-center">Need a .cap File To Test? Download One From:<span className=" text-green-400 underline"><a target="_" href="https://www.wireshark.org/download/automated/captures/"> WireShark</a></span></p>
     </div>
   );
 };
