@@ -118,7 +118,7 @@ export default function Home() {
       ) : (
     <div
       className="parent bg-gradient-to-r from-[#063747] to-[#0a466c] font-[Poppins,Georgia] font-extrabold">
-        <div className="bg-amber-300 px-8 text-center">Services May Feel Slow Due To Low Backend Specs as This Is Working On Free Tier Of Render.If You Can,Sponsor The Project!</div>
+        <div className="bg-black px-8 text-center">Services May Feel Slow Due To Low Backend Specs as This Is Working On Free Tier Of Render.If You Can,<Link href="https://ko-fi.com/netnerve"><span className="text-blue-400 underline">Sponsor The Project!</span></Link></div>
   <div ref={homeRef} className="h-[85vh] relative flex-col align-middle items-center">
     
       <div className="py-5 navbar">
