@@ -43,7 +43,7 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
     // const fileType = file?.type ?? "Unknown";
   return (
     <motion.div
-      className="font-[Poppins] px-10 py-10 relative"
+      className="font-[Poppins] md:px-10 px-3 py-10 relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2, ease: "easeInOut" }}
@@ -71,8 +71,8 @@ const endTime = Math.max(...timestamps.map(ts => ts.getTime()));
 </div>
       
       <div className="relative z-10 flex justify-center items-start">
-        <h1 className="text-5xl font-bold text-green-400">
-          Sniffed, Scanned, and Summarized 🤖
+        <h1 className="text-5xl text-center  font-bold text-green-400">
+          Sniffed, Scanned, and Summarized <span>🤖</span>
         </h1>
       </div>
 
