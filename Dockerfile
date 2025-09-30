@@ -1,37 +1,31 @@
-# Frontend build
+# --- frontend---
 FROM node:20-slim as frontend
-
-# workingdir for frontend
 WORKDIR /frontend
 
-# Copy files
+# install deps
 COPY package*.json ./
+RUN npm install 
 
-# install req
-RUN npm install
-
-# copy all files
+# copy all files and build frontend
 COPY . .
+RUN npm run build && npm run export
 
-# build the frontend
-RUN npm run build
-
-
-#backend build
+# --- backend---
 FROM python:3.11-slim
-
-# bakend working dir
 WORKDIR /app
 
-# install req
+# backend req install
 COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # copy backend code
 COPY backend/ .
 
-# expose req port
+# Copy built frontend to backend static
+COPY --from=frontend /frontend/out /app/static
+
+# backend port
 EXPOSE 10000
 
-# run FastAPI with Gunicorn+Uvicorn
+# Run FastAPI cmd
 CMD ["gunicorn", "main:app", "-k", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:10000", "--timeout", "120"]

@@ -120,7 +120,7 @@ export default function Home() {
     <div
       className="parent bg-gradient-to-r from-[#063747] to-[#0a466c] font-[Poppins,Georgia] font-extrabold">
         <div className="bg-black px-8 text-center">Services May Feel Slow Due To Low Backend Specs as This Is Working On Free Tier Of Render :( If You Can,<Link href="https://ko-fi.com/netnerve"><span className="text-blue-400 underline">Sponsor The Project!</span></Link></div>
-  <div ref={homeRef} className="h-[85vh] relative flex-col align-middle items-center">
+  <div ref={homeRef} className="h-[80vh] relative flex-col align-middle items-center">
     
       <div className="py-2 md:py-5 navbar bg-transparent relative z-50">
         <div className="flex-1 flex-col items-center">
@@ -198,7 +198,7 @@ export default function Home() {
           </div>
         )}
       </div>
-      <div className="md:py-25 py-5 md:px-15 px-5 md:flex md:flex-row flex-col align-middle items-center justify-between">
+      <div className="md:py-12 py-5 md:px-15 px-5 md:flex md:flex-row flex-col align-middle items-center justify-between">
         
         <div  className="h-1/2 md:w-1/2 text-cente w-full flex flex-col ">
           <h1 ref={headline} className="invisible md:text-6xl text-3xl text-green-200">

@@ -6,18 +6,21 @@ from scapy.layers.inet import IP, TCP, UDP, ICMP
 from scapy.layers.l2 import ARP
 import uuid,os,datetime
 from dotenv import load_dotenv
+from fastapi.staticfiles import StaticFiles
+from fastapi import Body
 # import magic
 import filetype
 load_dotenv()
 from groq import Groq
 timestamp = datetime.datetime.now().isoformat()
 app = FastAPI()
-from fastapi import Body
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
+
 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000","https://netnerve.vercel.app"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["POST","OPTIONS"],
     allow_headers=["Content-Type"],
