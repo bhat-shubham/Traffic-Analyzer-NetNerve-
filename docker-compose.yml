@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  netnerve:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: netnerve_app
+    ports:
+      - "10000:10000"
+    env_file:
+      - .env   # loads env
+    restart: always
