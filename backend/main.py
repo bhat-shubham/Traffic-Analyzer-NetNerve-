@@ -14,7 +14,8 @@ load_dotenv()
 from groq import Groq
 timestamp = datetime.datetime.now().isoformat()
 app = FastAPI()
-app.mount("/", StaticFiles(directory="static", html=True), name="static")
+if os.path.isdir("static"):
+    app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 
 
