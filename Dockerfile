@@ -8,7 +8,7 @@ RUN npm install
 
 # copy all files and build frontend
 COPY . .
-RUN npm run build && npm run export
+RUN npm run build
 
 # --- backend---
 FROM python:3.11-slim
