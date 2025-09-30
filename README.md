@@ -93,6 +93,25 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
 
+## Running with Docker
+
+Anyone can run NetNerve using the Docker image:
+
+### Pull the Docker image
+
+```bash
+docker pull bhatshubham/netnerve:latest
+```
+### Run the container
+```bash
+docker run -p 8000:10000 bhatshubham/netnerve:latest
+```
+Visit http://localhost:8000 in your browser to access the application.
+### USing Environment Variables
+```bash
+docker run --env-file .env -p 8000:10000 bhatshubham/netnerve:latest
+```
+
 ## Usage
 
 - Navigate to the main dashboard.
